@@ -1,0 +1,3 @@
+{"id": "pytest-failure", "prompt_file": "pytest_run.log", "question": "Which test failed? Reply with just the test function name.", "expected": "test_checkout_total", "match": "contains"}
+{"id": "pytest-cause", "prompt_file": "pytest_run.log", "question": "What value did Cart.total() actually return in the failing test? Reply with just the number.", "expected": "26.0", "match": "contains"}
+{"id": "review-prompt", "prompt_file": "prompt.md", "match": "same_as_original"}

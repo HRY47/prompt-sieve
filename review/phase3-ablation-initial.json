@@ -1,0 +1,340 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "expected": "42",
+  "original": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. \n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "normalized": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "compressed": "routine meeting background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "original_fact": "کد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "compressed_fact": "کد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "word_diff": [
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "and"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is",
+        "routine"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "background",
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is",
+        "routine",
+        "meeting",
+        "background",
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    }
+  ],
+  "variants": [
+    {
+      "variant": "original",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. \n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "42",
+      "correct": true,
+      "input_tokens": 168,
+      "output_tokens": 3,
+      "seconds": 1.0188795590001973
+    },
+    {
+      "variant": "normalization_only",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 167,
+      "output_tokens": 3,
+      "seconds": 1.0411681649993625
+    },
+    {
+      "variant": "llmlingua",
+      "text": "routine meeting background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 128,
+      "output_tokens": 3,
+      "seconds": 0.7855752129999019
+    },
+    {
+      "variant": "compressed_filler_original_separators",
+      "text": "routine meeting background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts. \n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8477639160000763
+    },
+    {
+      "variant": "factual_paragraph_only",
+      "text": "کد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "42",
+      "correct": true,
+      "input_tokens": 87,
+      "output_tokens": 3,
+      "seconds": 0.6217241029999059
+    },
+    {
+      "variant": "normalized_filler_original_fact",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 167,
+      "output_tokens": 3,
+      "seconds": 1.0015540889999102
+    },
+    {
+      "variant": "original_filler_1_sentences",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 103,
+      "output_tokens": 3,
+      "seconds": 0.7019749290002437
+    },
+    {
+      "variant": "original_filler_2_sentences",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 119,
+      "output_tokens": 3,
+      "seconds": 0.7797352249999676
+    },
+    {
+      "variant": "original_filler_3_sentences",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "42",
+      "correct": true,
+      "input_tokens": 135,
+      "output_tokens": 3,
+      "seconds": 0.8094459069998265
+    },
+    {
+      "variant": "original_filler_4_sentences",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "42",
+      "correct": true,
+      "input_tokens": 151,
+      "output_tokens": 3,
+      "seconds": 0.9163624829998298
+    },
+    {
+      "variant": "original_filler_5_sentences",
+      "text": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 167,
+      "output_tokens": 3,
+      "seconds": 1.03118299200014
+    },
+    {
+      "variant": "restore_no",
+      "text": "routine meeting no background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.7915558880004028
+    },
+    {
+      "variant": "restore_additional",
+      "text": "routine meeting additional background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8042092839996258
+    },
+    {
+      "variant": "restore_task",
+      "text": "routine meeting task background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8254382579998492
+    },
+    {
+      "variant": "restore_facts",
+      "text": "routine meeting facts background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.7944635530002415
+    },
+    {
+      "variant": "restore_This",
+      "text": "routine meeting This background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.869664787000147
+    },
+    {
+      "variant": "restore_is",
+      "text": "routine meeting is background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8481825290000415
+    },
+    {
+      "variant": "restore_routine",
+      "text": "routine meeting routine background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.9047890490001009
+    },
+    {
+      "variant": "restore_meeting",
+      "text": "routine meeting meeting background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8915632950001964
+    },
+    {
+      "variant": "restore_about",
+      "text": "routine meeting about background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 1.1174875730002896
+    },
+    {
+      "variant": "restore_and",
+      "text": "routine meeting and background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.8855853820004995
+    },
+    {
+      "variant": "restore_with",
+      "text": "routine meeting with background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+      "answer": "10",
+      "correct": false,
+      "input_tokens": 129,
+      "output_tokens": 3,
+      "seconds": 0.893882547999965
+    }
+  ]
+}

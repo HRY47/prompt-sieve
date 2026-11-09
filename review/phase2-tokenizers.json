@@ -1,0 +1,155 @@
+{
+  "mode": "tokenizers",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "peak_process_rss_bytes": 867844096,
+  "gpu_vram_bytes": null,
+  "paid_api_requests": 0,
+  "result": [
+    {
+      "sample": "en",
+      "characters": 105,
+      "counts": {
+        "tiktoken:o200k_base": 28,
+        "tiktoken:cl100k_base": 28,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 29,
+        "heuristic(rough)": 26
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": -0.0714285714285714,
+        "tiktoken:cl100k_base": -0.0714285714285714,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.10344827586206895
+      }
+    },
+    {
+      "sample": "fa",
+      "characters": 123,
+      "counts": {
+        "tiktoken:o200k_base": 42,
+        "tiktoken:cl100k_base": 70,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 65,
+        "heuristic(rough)": 46
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": 0.09523809523809534,
+        "tiktoken:cl100k_base": -0.34285714285714286,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.29230769230769227
+      }
+    },
+    {
+      "sample": "zh",
+      "characters": 70,
+      "counts": {
+        "tiktoken:o200k_base": 30,
+        "tiktoken:cl100k_base": 33,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 31,
+        "heuristic(rough)": 32
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": 0.06666666666666665,
+        "tiktoken:cl100k_base": -0.030303030303030276,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 0.032258064516129004
+      }
+    },
+    {
+      "sample": "ja",
+      "characters": 91,
+      "counts": {
+        "tiktoken:o200k_base": 38,
+        "tiktoken:cl100k_base": 51,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 39,
+        "heuristic(rough)": 53
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": 0.39473684210526305,
+        "tiktoken:cl100k_base": 0.03921568627450989,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 0.35897435897435903
+      }
+    },
+    {
+      "sample": "mixed",
+      "characters": 83,
+      "counts": {
+        "tiktoken:o200k_base": 28,
+        "tiktoken:cl100k_base": 39,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 35,
+        "heuristic(rough)": 32
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": 0.1428571428571428,
+        "tiktoken:cl100k_base": -0.17948717948717952,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.08571428571428574
+      }
+    },
+    {
+      "sample": "code",
+      "characters": 59,
+      "counts": {
+        "tiktoken:o200k_base": 20,
+        "tiktoken:cl100k_base": 20,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 20,
+        "heuristic(rough)": 15
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": -0.25,
+        "tiktoken:cl100k_base": -0.25,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.25
+      }
+    },
+    {
+      "sample": "logs",
+      "characters": 24801,
+      "counts": {
+        "tiktoken:o200k_base": 7738,
+        "tiktoken:cl100k_base": 7611,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 8822,
+        "heuristic(rough)": 6200
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": -0.1987593693460843,
+        "tiktoken:cl100k_base": -0.18538956773091575,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.29721151666288825
+      }
+    },
+    {
+      "sample": "json",
+      "characters": 39,
+      "counts": {
+        "tiktoken:o200k_base": 17,
+        "tiktoken:cl100k_base": 16,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 17,
+        "heuristic(rough)": 10
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": -0.4117647058823529,
+        "tiktoken:cl100k_base": -0.375,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.4117647058823529
+      }
+    },
+    {
+      "sample": "markdown",
+      "characters": 33,
+      "counts": {
+        "tiktoken:o200k_base": 12,
+        "tiktoken:cl100k_base": 12,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": 13,
+        "heuristic(rough)": 8
+      },
+      "heuristic_relative_error": {
+        "tiktoken:o200k_base": -0.33333333333333337,
+        "tiktoken:cl100k_base": -0.33333333333333337,
+        "hf:Qwen/Qwen2.5-0.5B-Instruct": -0.3846153846153846
+      }
+    }
+  ],
+  "dependencies": {
+    "tokopt": "0.1.0",
+    "tiktoken": "0.14.0",
+    "argostranslate": "1.11.0",
+    "llmlingua": "0.2.2",
+    "transformers": "4.57.6",
+    "torch": "2.15.0",
+    "tokenizers": "0.22.2"
+  }
+}

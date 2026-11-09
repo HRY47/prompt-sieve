@@ -1,0 +1,1435 @@
+{
+  "mode": "benchmark",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "peak_process_rss_bytes": 3974201344,
+  "gpu_vram_bytes": null,
+  "paid_api_requests": 0,
+  "result": {
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "load_seconds": 4.383419762999438,
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 32,
+      "dtype": "float32",
+      "threads": 2
+    },
+    "cases": [
+      {
+        "id": "en-code",
+        "expected": "42",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 6.398469656000088,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 102,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 101,
+            "savings": 0.009803921568627416,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 62,
+            "savings": 0.3921568627450981,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 1.1513670260001163,
+            "text_tokens": 114,
+            "chat_tokens": 143,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.9258626869996078,
+            "text_tokens": 74,
+            "chat_tokens": 103,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "en-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.8747444649998215,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 102,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 101,
+            "savings": 0.009803921568627416,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 62,
+            "savings": 0.3921568627450981,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 0.8772115150004538,
+            "text_tokens": 74,
+            "chat_tokens": 103,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 1.0721614600006433,
+            "text_tokens": 114,
+            "chat_tokens": 143,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "en-file",
+        "expected": "config.yaml",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.8467374440006097,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 102,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 101,
+            "savings": 0.009803921568627416,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 62,
+            "savings": 0.3921568627450981,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 1.144030716999623,
+            "text_tokens": 114,
+            "chat_tokens": 143,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 0.8212872760004757,
+            "text_tokens": 74,
+            "chat_tokens": 103,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "fa-code",
+        "expected": "42",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7742723910005225,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 127,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 126,
+            "savings": 0.007874015748031482,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 87,
+            "savings": 0.31496062992125984,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "10",
+            "correct": false,
+            "seconds": 0.989148498000759,
+            "text_tokens": 99,
+            "chat_tokens": 128,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 1.2167504170001848,
+            "text_tokens": 139,
+            "chat_tokens": 168,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "fa-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.8474301789992751,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 127,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 126,
+            "savings": 0.007874015748031482,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 87,
+            "savings": 0.31496062992125984,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 1.129240905000188,
+            "text_tokens": 139,
+            "chat_tokens": 168,
+            "output_tokens": 2
+          },
+          "optimized": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.8489581740004724,
+            "text_tokens": 99,
+            "chat_tokens": 128,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "fa-file",
+        "expected": "config.yaml",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7296839930004353,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 127,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 126,
+            "savings": 0.007874015748031482,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 87,
+            "savings": 0.31496062992125984,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 0.999604346000524,
+            "text_tokens": 99,
+            "chat_tokens": 128,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 1.1558363249996546,
+            "text_tokens": 139,
+            "chat_tokens": 168,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "zh-code",
+        "expected": "42",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7562375520001297,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 101,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 100,
+            "savings": 0.00990099009900991,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 61,
+            "savings": 0.39603960396039606,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 1.1136023220005882,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.7793865710000318,
+            "text_tokens": 73,
+            "chat_tokens": 102,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "zh-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7309403979998024,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 101,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 100,
+            "savings": 0.00990099009900991,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 61,
+            "savings": 0.39603960396039606,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.7233941969998341,
+            "text_tokens": 73,
+            "chat_tokens": 102,
+            "output_tokens": 2
+          },
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.9568876440007443,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "zh-file",
+        "expected": "config.yaml",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7241919909993157,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 101,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 100,
+            "savings": 0.00990099009900991,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 61,
+            "savings": 0.39603960396039606,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 1.060904763000508,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 0.8065737879996959,
+            "text_tokens": 73,
+            "chat_tokens": 102,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "ja-code",
+        "expected": "42",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6979526719997011,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 109,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 108,
+            "savings": 0.00917431192660545,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 69,
+            "savings": 0.3669724770642202,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.87465487100053,
+            "text_tokens": 81,
+            "chat_tokens": 110,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 1.016947218000496,
+            "text_tokens": 121,
+            "chat_tokens": 150,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "ja-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7013012170000366,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 109,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 108,
+            "savings": 0.00917431192660545,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 69,
+            "savings": 0.3669724770642202,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 1.005787170000076,
+            "text_tokens": 121,
+            "chat_tokens": 150,
+            "output_tokens": 2
+          },
+          "optimized": {
+            "answer": "No",
+            "correct": true,
+            "seconds": 0.752398175000053,
+            "text_tokens": 81,
+            "chat_tokens": 110,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "ja-file",
+        "expected": "config.yaml",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.739851133999764,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 109,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 108,
+            "savings": 0.00917431192660545,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 69,
+            "savings": 0.3669724770642202,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 0.8913631020004686,
+            "text_tokens": 81,
+            "chat_tokens": 110,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 1.0652260330007266,
+            "text_tokens": 121,
+            "chat_tokens": 150,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "mixed-code",
+        "expected": "42",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7396220809996521,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 118,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 117,
+            "savings": 0.008474576271186418,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 78,
+            "savings": 0.3389830508474576,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 1.090947390999645,
+            "text_tokens": 130,
+            "chat_tokens": 159,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.9460047809998287,
+            "text_tokens": 90,
+            "chat_tokens": 119,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "mixed-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.7169381120002072,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 118,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 117,
+            "savings": 0.008474576271186418,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 78,
+            "savings": 0.3389830508474576,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "No",
+            "correct": true,
+            "seconds": 0.8766943690006883,
+            "text_tokens": 90,
+            "chat_tokens": 119,
+            "output_tokens": 2
+          },
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.9722612989999107,
+            "text_tokens": 130,
+            "chat_tokens": 159,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "mixed-file",
+        "expected": "config.yaml",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6067850019999241,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 118,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 117,
+            "savings": 0.008474576271186418,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 78,
+            "savings": 0.3389830508474576,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "schedule.yaml",
+            "correct": false,
+            "seconds": 0.9193406729991693,
+            "text_tokens": 130,
+            "chat_tokens": 159,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "config.yaml",
+            "correct": true,
+            "seconds": 0.7569198130004224,
+            "text_tokens": 90,
+            "chat_tokens": 119,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "en-integrated-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6110493939995649,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 182,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 181,
+            "savings": 0.005494505494505475,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 94,
+            "savings": 0.48351648351648346,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 0.8729613409996091,
+            "text_tokens": 106,
+            "chat_tokens": 135,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 1.2248639810004534,
+            "text_tokens": 194,
+            "chat_tokens": 223,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "fa-integrated-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6088101630002711,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 207,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 206,
+            "savings": 0.004830917874396157,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 101,
+            "savings": 0.5120772946859904,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 1.2716107530004592,
+            "text_tokens": 219,
+            "chat_tokens": 248,
+            "output_tokens": 2
+          },
+          "optimized": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.8197715260002951,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "zh-integrated-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.632818533000318,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 183,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 182,
+            "savings": 0.005464480874316946,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 103,
+            "savings": 0.43715846994535523,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.7970997170004921,
+            "text_tokens": 115,
+            "chat_tokens": 144,
+            "output_tokens": 2
+          },
+          "original": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 1.2610673610006415,
+            "text_tokens": 195,
+            "chat_tokens": 224,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "ja-integrated-safety",
+        "expected": "no",
+        "strategy": "normalize",
+        "optimization_seconds": 0.6389895849997629,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 192,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 191,
+            "savings": 0.00520833333333337,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 99,
+            "savings": 0.484375,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "dropped meaning-critical words ['ない']"
+            ],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 1.3297085780004636,
+            "text_tokens": 204,
+            "chat_tokens": 233,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 1.2794750550001481,
+            "text_tokens": 203,
+            "chat_tokens": 232,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "mixed-integrated-safety",
+        "expected": "no",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6173704180000641,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 198,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 197,
+            "savings": 0.005050505050505083,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 100,
+            "savings": 0.4949494949494949,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 0.7965285990003395,
+            "text_tokens": 112,
+            "chat_tokens": 141,
+            "output_tokens": 2
+          },
+          "original": {
+            "answer": "Yes",
+            "correct": false,
+            "seconds": 1.239776219000305,
+            "text_tokens": 210,
+            "chat_tokens": 239,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "code",
+        "expected": "9",
+        "strategy": "lingua@0.5",
+        "optimization_seconds": 0.6181946800006699,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 99,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 98,
+            "savings": 0.010101010101010055,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "lingua@0.5",
+            "tokens": 59,
+            "savings": 0.4040404040404041,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": 1.0,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "9",
+            "correct": true,
+            "seconds": 0.8148917159996927,
+            "text_tokens": 112,
+            "chat_tokens": 141,
+            "output_tokens": 2
+          },
+          "optimized": {
+            "answer": "9",
+            "correct": true,
+            "seconds": 0.6149109030002364,
+            "text_tokens": 72,
+            "chat_tokens": 101,
+            "output_tokens": 2
+          }
+        }
+      },
+      {
+        "id": "translation-code",
+        "expected": "42",
+        "strategy": "normalize",
+        "optimization_seconds": 2.299339735999638,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 102,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 101,
+            "savings": 0.009803921568627416,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:fa",
+            "tokens": 292,
+            "savings": -1.8627450980392157,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -186.3%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:zh",
+            "tokens": 115,
+            "savings": -0.12745098039215685,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -12.7%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:ja",
+            "tokens": 187,
+            "savings": -0.8333333333333333,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -83.3%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.9076748930001486,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "42",
+            "correct": true,
+            "seconds": 0.9930632730001889,
+            "text_tokens": 114,
+            "chat_tokens": 143,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "translation-safety",
+        "expected": "no",
+        "strategy": "normalize",
+        "optimization_seconds": 1.314669822999349,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 102,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 101,
+            "savings": 0.009803921568627416,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:fa",
+            "tokens": 292,
+            "savings": -1.8627450980392157,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -186.3%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:zh",
+            "tokens": 115,
+            "savings": -0.12745098039215685,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -12.7%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "translate:ja",
+            "tokens": 187,
+            "savings": -0.8333333333333333,
+            "lossy": true,
+            "passed": false,
+            "reasons": [
+              "saves -83.3%, below the 10% minimum",
+              "candidate increases token count"
+            ],
+            "preservation": null,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "original": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 0.9703044150001006,
+            "text_tokens": 114,
+            "chat_tokens": 143,
+            "output_tokens": 3
+          },
+          "optimized": {
+            "answer": "Yes.",
+            "correct": false,
+            "seconds": 0.9725893340000766,
+            "text_tokens": 113,
+            "chat_tokens": 142,
+            "output_tokens": 3
+          }
+        }
+      },
+      {
+        "id": "logs",
+        "expected": "test_connect",
+        "strategy": "logs",
+        "optimization_seconds": 0.004889673999969091,
+        "candidates": [
+          {
+            "name": "original",
+            "tokens": 911,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "normalize",
+            "tokens": 911,
+            "savings": 0.0,
+            "lossy": false,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          },
+          {
+            "name": "logs",
+            "tokens": 33,
+            "savings": 0.9637760702524698,
+            "lossy": true,
+            "passed": true,
+            "reasons": [],
+            "preservation": null,
+            "roundtrip_chrf": null
+          }
+        ],
+        "arms": {
+          "optimized": {
+            "answer": "test_connect",
+            "correct": true,
+            "seconds": 0.6238027910003439,
+            "text_tokens": 44,
+            "chat_tokens": 73,
+            "output_tokens": 3
+          },
+          "original": {
+            "answer": "test_connect",
+            "correct": true,
+            "seconds": 5.797424975000467,
+            "text_tokens": 922,
+            "chat_tokens": 951,
+            "output_tokens": 3
+          }
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "tokopt": "0.1.0",
+    "tiktoken": "0.14.0",
+    "argostranslate": "1.11.0",
+    "llmlingua": "0.2.2",
+    "transformers": "4.57.6",
+    "torch": "2.15.0",
+    "tokenizers": "0.22.2"
+  }
+}

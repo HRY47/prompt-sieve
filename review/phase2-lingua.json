@@ -1,0 +1,289 @@
+{
+  "mode": "lingua",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "peak_process_rss_bytes": 1333030912,
+  "gpu_vram_bytes": null,
+  "paid_api_requests": 0,
+  "result": [
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 154,
+      "best": "lingua@0.5",
+      "best_tokens": 108,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. \n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 154,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id. Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id.\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 153,
+          "savings": 0.00649350649350644,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "lingua@0.5",
+          "text": "Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id.\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 108,
+          "savings": 0.2987012987012987,
+          "lossy": true,
+          "passed": true,
+          "reasons": [],
+          "preservation": 1.0,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "en",
+      "raw_output": "Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. Never. 42. `config.yaml` /srv/app.py --dry-run user_id. \n\n```sh\npython /srv/app.py --dry-run\n```",
+      "raw_tokens": 109,
+      "raw_preservation": {
+        "score": 1.0,
+        "missing": [],
+        "lost_critical_words": []
+      },
+      "raw_seconds": 68.32609100500031,
+      "warm_optimizer_seconds": 0.6956753119993664,
+      "peak_process_rss_bytes": 1269342208,
+      "cuda_available": false
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 224,
+      "best": "lingua@0.5",
+      "best_tokens": 143,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. \n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 224,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید. هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید.\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 223,
+          "savings": 0.004464285714285698,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "lingua@0.5",
+          "text": "هرگز پایگاه حذف نکنید. ۴۲ رکورد. فایل `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id.\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 143,
+          "savings": 0.3616071428571429,
+          "lossy": true,
+          "passed": true,
+          "reasons": [],
+          "preservation": 1.0,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "fa",
+      "raw_output": "هرگز پایگاه حذف نکنید. ۴۲ رکورد. فایل `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. هرگز حذف نکنید. ۴۲. `config.yaml` /srv/app.py --dry-run user_id. \n\n```sh\npython /srv/app.py --dry-run\n```",
+      "raw_tokens": 144,
+      "raw_preservation": {
+        "score": 1.0,
+        "missing": [],
+        "lost_critical_words": []
+      },
+      "raw_seconds": 0.730055294999147,
+      "warm_optimizer_seconds": 0.7511023060005755,
+      "peak_process_rss_bytes": 1294794752,
+      "cuda_available": false
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 164,
+      "best": "lingua@0.5",
+      "best_tokens": 116,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 \n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 164,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。 请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 163,
+          "savings": 0.0060975609756097615,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "lingua@0.5",
+          "text": "勿 删 除 数 库 42 条 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 116,
+          "savings": 0.29268292682926833,
+          "lossy": true,
+          "passed": true,
+          "reasons": [],
+          "preservation": 1.0,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "zh",
+      "raw_output": "勿 删 除 数 库 42 条 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id 勿 42 `config.yaml` 和 /srv/app.py --dry-run 和 user_id \n\n```sh\npython /srv/app.py --dry-run\n```",
+      "raw_tokens": 116,
+      "raw_preservation": {
+        "score": 1.0,
+        "missing": [],
+        "lost_critical_words": []
+      },
+      "raw_seconds": 0.7271943290006675,
+      "warm_optimizer_seconds": 0.6504446939998161,
+      "peak_process_rss_bytes": 1311649792,
+      "cuda_available": false
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 204,
+      "best": "normalize",
+      "best_tokens": 203,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 \n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 204,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。 データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 203,
+          "savings": 0.004901960784313708,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "lingua@0.5",
+          "text": "データベースを 削 除 42 件 保 持 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 42 件 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 除 42 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 除 42 `config.yaml` と /srv/app.py --dry-run user_id 確 認 削 除 42 `config.yaml` と /srv/app.py --dry-run と user_id 確 認\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 145,
+          "savings": 0.2892156862745098,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "dropped meaning-critical words ['ない']"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "ja",
+      "raw_output": "データベースを 削 除 42 件 保 持 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 42 件 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 除 42 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 除 42 `config.yaml` と /srv/app.py --dry-run user_id 確 認 削 除 42 `config.yaml` と /srv/app.py --dry-run と user_id 確 認 \n\n```sh\npython /srv/app.py --dry-run\n```",
+      "raw_tokens": 145,
+      "raw_preservation": {
+        "score": 1.0,
+        "missing": [],
+        "lost_critical_words": [
+          "ない"
+        ]
+      },
+      "raw_seconds": 0.6561496160002207,
+      "warm_optimizer_seconds": 0.6930445010002586,
+      "peak_process_rss_bytes": 1328132096,
+      "cuda_available": false
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 154,
+      "best": "lingua@0.5",
+      "best_tokens": 115,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 \n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 154,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。 Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 153,
+          "savings": 0.00649350649350644,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "lingua@0.5",
+          "text": "Never delete production. داده نگه 42 条 `config.yaml` と /srv/app.py 確 認 Never. 42 `config.yaml` と /srv/app.py 確 認 Never delete production. 42 `config.yaml` と /srv/app.py 確 認 Never delete production. 42 `config.yaml` と /srv/app.py 確 認 Never delete. 42 `config.yaml` と /srv/app.py 確 認\n\n```sh\npython /srv/app.py --dry-run\n```",
+          "tokens": 115,
+          "savings": 0.2532467532467533,
+          "lossy": true,
+          "passed": true,
+          "reasons": [],
+          "preservation": 1.0,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "mixed",
+      "raw_output": "Never delete production. داده نگه 42 条 `config.yaml` と /srv/app.py 確 認 Never. 42 `config.yaml` と /srv/app.py 確 認 Never delete production. 42 `config.yaml` と /srv/app.py 確 認 Never delete production. 42 `config.yaml` と /srv/app.py 確 認 Never delete. 42 `config.yaml` と /srv/app.py 確 認 \n\n```sh\npython /srv/app.py --dry-run\n```",
+      "raw_tokens": 115,
+      "raw_preservation": {
+        "score": 1.0,
+        "missing": [],
+        "lost_critical_words": []
+      },
+      "raw_seconds": 0.6252760540000963,
+      "warm_optimizer_seconds": 0.7073882469994714,
+      "peak_process_rss_bytes": 1333030912,
+      "cuda_available": false
+    }
+  ],
+  "dependencies": {
+    "tokopt": "0.1.0",
+    "tiktoken": "0.14.0",
+    "argostranslate": "1.11.0",
+    "llmlingua": "0.2.2",
+    "transformers": "4.57.6",
+    "torch": "2.15.0",
+    "tokenizers": "0.22.2"
+  }
+}

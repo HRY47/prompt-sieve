@@ -1,0 +1,74 @@
+[
+  {
+    "category": "English",
+    "text": "Never delete the production database. The limit is -5.",
+    "heuristic_tokens_estimated": 14,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Persian",
+    "text": "هرگز پایگاه داده را حذف نکنید. مقدار ۵ است.",
+    "heuristic_tokens_estimated": 19,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Chinese",
+    "text": "请勿删除数据库。限额为五。",
+    "heuristic_tokens_estimated": 12,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Japanese",
+    "text": "データベースを削除しないでください。",
+    "heuristic_tokens_estimated": 18,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Mixed-language",
+    "text": "English فارسی 中文 日本語 123",
+    "heuristic_tokens_estimated": 11,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Source code",
+    "text": "def f(x):\n    return x + 42\n",
+    "heuristic_tokens_estimated": 7,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Logs",
+    "text": "ERROR /srv/main.py:42 connection refused\n",
+    "heuristic_tokens_estimated": 10,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "JSON",
+    "text": "{\"value\": -1.5, \"safe\": true}",
+    "heuristic_tokens_estimated": 7,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  },
+  {
+    "category": "Markdown",
+    "text": "# Heading\n\n- `value` must be 42.\n",
+    "heuristic_tokens_estimated": 8,
+    "tiktoken_tokens": null,
+    "hf_tokens": null,
+    "status": "Real tokenizers blocked: dependencies unavailable"
+  }
+]

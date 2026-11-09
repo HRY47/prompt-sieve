@@ -1,0 +1,48 @@
+{
+  "cancellations": [
+    {
+      "budget_seconds": 0.05,
+      "actual_seconds": 0.052350457000102324,
+      "timed_out": true,
+      "original_returned": true,
+      "original_tokens": null,
+      "warnings": [
+        "optimization timeout; original returned"
+      ],
+      "live_workers": [],
+      "child_processes": []
+    },
+    {
+      "budget_seconds": 0.5,
+      "actual_seconds": 0.5022266309997576,
+      "timed_out": true,
+      "original_returned": true,
+      "original_tokens": 680,
+      "warnings": [
+        "optimization timeout; original returned"
+      ],
+      "live_workers": [],
+      "child_processes": []
+    },
+    {
+      "budget_seconds": 2,
+      "actual_seconds": 2.0060124619994895,
+      "timed_out": true,
+      "original_returned": true,
+      "original_tokens": 680,
+      "warnings": [
+        "optimization timeout; original returned"
+      ],
+      "live_workers": [],
+      "child_processes": []
+    }
+  ],
+  "hf_snapshot": {
+    "seconds": 76.12413907599966,
+    "timed_out": false,
+    "count": 6,
+    "expected_count": 6,
+    "warnings": []
+  },
+  "paid_api_requests": 0
+}

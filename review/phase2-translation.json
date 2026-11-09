@@ -1,0 +1,480 @@
+{
+  "mode": "translation",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "peak_process_rss_bytes": 1759821824,
+  "gpu_vram_bytes": null,
+  "paid_api_requests": 0,
+  "result": [
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 197,
+      "best": "original",
+      "best_tokens": 197,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "You are reviewing a pull request for the checkout service. Please read the description below carefully and do not approve it unless every requirement is met.\n\nThe change refactors `Cart.total()` in src/payments/cart.py so that tax is calculated per line item instead of on the subtotal. The author says this matches the accounting team's rules, which require rounding each line to 2 decimal places before summing. The tax rate is 5% for most items, but books are exempt in some regions, and the function must never return a negative total.\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\nCheck whether the implementation handles the exemption, whether the rounding is correct, and whether there are tests for an empty cart. List any problems you find, ordered by severity, and suggest a fix for each one. Keep the review under 200 words.\n",
+          "tokens": 197,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "You are reviewing a pull request for the checkout service. Please read the description below carefully and do not approve it unless every requirement is met.\n\nThe change refactors `Cart.total()` in src/payments/cart.py so that tax is calculated per line item instead of on the subtotal. The author says this matches the accounting team's rules, which require rounding each line to 2 decimal places before summing. The tax rate is 5% for most items, but books are exempt in some regions, and the function must never return a negative total.\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\nCheck whether the implementation handles the exemption, whether the rounding is correct, and whether there are tests for an empty cart. List any problems you find, ordered by severity, and suggest a fix for each one. Keep the review under 200 words.\n",
+          "tokens": 197,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:fa",
+          "text": "شما در حال بررسی یک درخواست کشش برای خدمات پرداخت هستید. لطفا شرح زیر را با دقت بخوانید و آن را تایید نکنید مگر اینکه هر گونه نیاز برآورده شود.\n\nعوامل تغییر `Cart.total()` در src/payments/cart.py بنابراین مالیات به جای کل در هر خط محاسبه می شود. نویسنده می گوید که این مطابق با قوانین تیم حسابداری است که نیاز به دور زدن هر خط به 2 مکان های تصمیم گیری قبل از جمع آوری نرخ مالیات است 5% برای اکثر موارد، اما کتاب ها در برخی از مناطق معاف هستند و تابع هرگز نباید کل منفی را برگرداند.\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\nبررسی کنید که آیا پیاده سازی معافیت را اداره می کند، چه دور زدن درست باشد و چه آزمایش هایی برای یک سبد خالی وجود دارد. هر گونه مشکلی را که پیدا می کنید، با شدت سفارش داده شده و برای هر یک از آنها تعمیر کنید. بررسی زیر را نگه دارید 200 کلمات\n\n\n(Answer in English.)",
+          "tokens": 257,
+          "savings": -0.30456852791878175,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -30.5%, below the 10% minimum",
+            "back-translation lost 0 critical item(s) and critical words ['must']",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 71.45111399441618
+        },
+        {
+          "name": "translate:zh",
+          "text": "您正在审查关于离职服务的拉动请求 。 请仔细阅读以下说明,除非符合所有要求,否则不予批准。\n\n变化因素 `Cart.total()` 输入 src/payments/cart.py 因此,税收按细列项目计算,而不是按小计计算。 作者说,这符合会计小组的规则,要求每行四舍五入到 2 小数位数后再进行总结。 税率是 5% 对大多数项目来说,但有些地区的书籍是免用的,功能绝不能返回负总数。\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\n检查执行是否处理豁免,四舍五入是否正确,是否有空推车测试. 列出你发现的任何问题,按严重程度排序, 并提出每个问题的解决。 继续审查 200 词\n\n\n(Answer in English.)",
+          "tokens": 223,
+          "savings": -0.13197969543147203,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -13.2%, below the 10% minimum",
+            "back-translation lost 0 critical item(s) and critical words ['before']",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 69.42848465763872
+        },
+        {
+          "name": "translate:ja",
+          "text": "チェックアウトサービスのプルリクエストを検討しています。 下記の注意事項をよくお読みいただき、すべての条件を満たしている限り承認しないでください。\n\n変更レファクタ `Cart.total()` お問い合わせ src/payments/cart.py つまり、サブトタルではなく、ライン項目ごとに税金が計算されます。 著者は、これは会計チームのルールに一致していると述べています。これは各行を丸める必要があります。 2 要約する前に小数の場所。 消費税率は 5% ほとんどの項目については、一部の地域では本は免除され、関数は負の合計を返すことはありません。\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\n実装が免除を処理するかどうかを確認します。, ラウンドが正しいかどうか, 空のカートのテストがあるかどうか. あなたが見つけた問題のリスト, 重症で注文, 各1のための修正を提案. レビューを保ちましょう 200 キーワード\n\n\n(Answer in English.)",
+          "tokens": 298,
+          "savings": -0.5126903553299493,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -51.3%, below the 10% minimum",
+            "back-translation lost 0 critical item(s) and critical words ['must', 'never']",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 69.85525908282486
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "You are reviewing a pull request for the checkout service. Please read the description below carefully and do not approve it unless every requirement is met.\n\nThe change refactors `Cart.total()` in src/payments/cart.py so that tax is calculated per line item instead of on the subtotal. The author says this matches the accounting team's rules, which require rounding each line to 2 decimal places before summing. The tax rate is 5% for most items, but books are exempt in some regions, and the function must never return a negative total.\n\n```python\ndef total(self) -> float:\n    return sum(round(i.price * i.qty * (1 + self.tax_rate), 2) for i in self.items)\n```\n\nCheck whether the implementation handles the exemption, whether the rounding is correct, and whether there are tests for an empty cart. List any problems you find, ordered by severity, and suggest a fix for each one. Keep the review under 200 words.\n",
+          "tokens": 197,
+          "savings": 0.0,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "no paragraph passed the translation gate"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "example",
+      "source_language": "en",
+      "seconds": 22.44761811399985,
+      "peak_process_rss_bytes": 1750269952
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 28,
+      "best": "original",
+      "best_tokens": 28,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id.",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id.",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:fa",
+          "text": "هرگز پایگاه داده را حذف نکنید. Keep Keep Keep Keep 42 سوابق Read Read `config.yaml` در /srv/app.py همراه با --dry-run و user_id.\n\n(Answer in English.)",
+          "tokens": 44,
+          "savings": -0.5714285714285714,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -57.1%, below the 10% minimum",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 73.73895749583598
+        },
+        {
+          "name": "translate:zh",
+          "text": "从不删除数据库。 保留 42 记录。 读取 `config.yaml` 时间 /srv/app.py 与 --dry-run 和 user_id.\n\n(Answer in English.)",
+          "tokens": 36,
+          "savings": -0.2857142857142858,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -28.6%, below the 10% minimum",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 78.92512520547875
+        },
+        {
+          "name": "translate:ja",
+          "text": "データベースを削除しないでください。 お問い合わせ 42 レコード。 採用情報 `config.yaml` お問い合わせ /srv/app.py お問い合わせ --dry-run そして、 user_id.\n\n(Answer in English.)",
+          "tokens": 49,
+          "savings": -0.75,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -75.0%, below the 10% minimum",
+            "back-translation lost 0 critical item(s) and critical words ['never']",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 69.068680916342
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "Never delete the database. Keep 42 records. Read `config.yaml` at /srv/app.py with --dry-run and user_id.",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "no paragraph passed the translation gate"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "en",
+      "source_language": "en",
+      "seconds": 0.8064682530002756,
+      "peak_process_rss_bytes": 1753333760
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 42,
+      "best": "original",
+      "best_tokens": 42,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید.",
+          "tokens": 42,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "هرگز پایگاه داده را حذف نکنید. ۴۲ رکورد را نگه دارید. فایل `config.yaml` و /srv/app.py و --dry-run و user_id را بررسی کنید.",
+          "tokens": 42,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:en",
+          "text": "Never remove the database. ۴۲ Keep the record. file file file file. `config.yaml` and /srv/app.py and --dry-run and user_id Check out.\n\n(Answer in fa.)",
+          "tokens": 41,
+          "savings": 0.023809523809523836,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves +2.4%, below the 10% minimum"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 93.7355788775924
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "Never remove the database. ۴۲ Keep the record. file file file file. `config.yaml` and /srv/app.py and --dry-run and user_id Check out.\n\n(Answer in fa.)",
+          "tokens": 41,
+          "savings": 0.023809523809523836,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves +2.4%, below the 10% minimum"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "fa",
+      "source_language": "fa",
+      "seconds": 0.3817724320006164,
+      "peak_process_rss_bytes": 1754234880
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 30,
+      "best": "original",
+      "best_tokens": 30,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。",
+          "tokens": 30,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。",
+          "tokens": 30,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:en",
+          "text": "Do not delete the database. Reservations42Article record. Read `config.yaml` and /srv/app.py,use --dry-run and user_id。\n\n(Answer in zh.)",
+          "tokens": 34,
+          "savings": -0.1333333333333333,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -13.3%, below the 10% minimum",
+            "lost 1 critical item(s)",
+            "back-translation lost 2 critical item(s) and critical words ['勿']",
+            "candidate increases token count"
+          ],
+          "preservation": 0.8,
+          "roundtrip_chrf": 71.96972220581462
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "请勿删除数据库。保留42条记录。读取 `config.yaml` 和 /srv/app.py，使用 --dry-run 和 user_id。",
+          "tokens": 30,
+          "savings": 0.0,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "no paragraph passed the translation gate"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "zh",
+      "source_language": "zh",
+      "seconds": 0.3394218789999286,
+      "peak_process_rss_bytes": 1754775552
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 38,
+      "best": "original",
+      "best_tokens": 38,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。",
+          "tokens": 38,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。",
+          "tokens": 38,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:en",
+          "text": "Do not delete the database.42Contact Us`config.yaml` Home /srv/app.py Home --dry-run Home user_id Please check.\n\n(Answer in ja.)",
+          "tokens": 33,
+          "savings": 0.13157894736842102,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "lost 1 critical item(s)",
+            "back-translation lost 1 critical item(s) and critical words []"
+          ],
+          "preservation": 0.8,
+          "roundtrip_chrf": 58.549424335791336
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "データベースを削除しないでください。42件を保持してください。`config.yaml` と /srv/app.py と --dry-run と user_id を確認してください。",
+          "tokens": 38,
+          "savings": 0.0,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "no paragraph passed the translation gate"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "ja",
+      "source_language": "ja",
+      "seconds": 0.20761150599992106,
+      "peak_process_rss_bytes": 1755136000
+    },
+    {
+      "counter": "tiktoken:o200k_base",
+      "original_tokens": 28,
+      "best": "original",
+      "best_tokens": 28,
+      "candidates": [
+        {
+          "name": "original",
+          "text": "Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "normalize",
+          "text": "Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": false,
+          "passed": true,
+          "reasons": [],
+          "preservation": null,
+          "roundtrip_chrf": null
+        },
+        {
+          "name": "translate:fa",
+          "text": "هرگز تولید را حذف نکنید. دانلود زیرنویس فارسی بازی The Punch42条记录。 条记录。`config.yaml` と と /srv/app.py を確認。 を確認。\n\n(Answer in English.)",
+          "tokens": 46,
+          "savings": -0.6428571428571428,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -64.3%, below the 10% minimum",
+            "lost 1 critical item(s)",
+            "back-translation lost 1 critical item(s) and critical words []",
+            "candidate increases token count"
+          ],
+          "preservation": 0.6666666666666667,
+          "roundtrip_chrf": 64.0282744397352
+        },
+        {
+          "name": "translate:zh",
+          "text": "永不删除生产. {\\fn黑体\\fs22\\bord1\\shad0\\3aHBE\\4aH00\\fscx67\\fscy66\\2cHFFFFFF\\3cH808080}你觉得呢?42条记录。`config.yaml` と /srv/app.py を確認。\n\n(Answer in English.)",
+          "tokens": 74,
+          "savings": -1.6428571428571428,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -164.3%, below the 10% minimum",
+            "back-translation lost 1 critical item(s) and critical words []",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 55.20916423611528
+        },
+        {
+          "name": "translate:ja",
+          "text": "生産を削除しないでください。 نگه نگه نگه نگه نگه42条 条`config.yaml` と /srv/app.py お問い合わせ\n\n(Answer in English.)",
+          "tokens": 40,
+          "savings": -0.4285714285714286,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "saves -42.9%, below the 10% minimum",
+            "round-trip chrF check failed (chrF 39, minimum 55)",
+            "back-translation lost 1 critical item(s) and critical words ['never']",
+            "candidate increases token count"
+          ],
+          "preservation": 1.0,
+          "roundtrip_chrf": 39.46975103353334
+        },
+        {
+          "name": "mixed-per-paragraph",
+          "text": "Never delete production. داده را نگه دارید。保留42条记录。`config.yaml` と /srv/app.py を確認。",
+          "tokens": 28,
+          "savings": 0.0,
+          "lossy": true,
+          "passed": false,
+          "reasons": [
+            "no paragraph passed the translation gate"
+          ],
+          "preservation": null,
+          "roundtrip_chrf": null
+        }
+      ],
+      "sample": "mixed",
+      "source_language": "en",
+      "seconds": 1.31998868699975,
+      "peak_process_rss_bytes": 1759821824
+    }
+  ],
+  "dependencies": {
+    "tokopt": "0.1.0",
+    "tiktoken": "0.14.0",
+    "argostranslate": "1.11.0",
+    "llmlingua": "0.2.2",
+    "transformers": "4.57.6",
+    "torch": "2.15.0",
+    "tokenizers": "0.22.2"
+  }
+}

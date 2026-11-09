@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tokopt"
+version = "0.1.0"
+description = "Token-aware prompt optimizer: log compression, LLMLingua-2 pruning, and a multilingual token experiment."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.optional-dependencies]
+openai = ["tiktoken>=0.7", "openai>=1.40"]
+anthropic = ["anthropic>=0.40"]
+hf = ["tokenizers>=0.15", "transformers>=4.40"]
+lingua = ["llmlingua>=0.2.2", "transformers>=4.40,<5"]
+argos = ["argostranslate>=1.9"]
+nllb = ["transformers>=4.40,<5", "torch", "sentencepiece"]
+all = ["tiktoken>=0.7", "openai>=1.40", "anthropic>=0.40", "tokenizers>=0.15", "transformers>=4.40,<5", "llmlingua>=0.2.2", "argostranslate>=1.9", "sentencepiece"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+tokopt = "tokopt.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: requires explicitly enabled optional dependencies and model data"]

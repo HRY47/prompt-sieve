@@ -1,0 +1,139 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "expected": "42",
+  "original": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. \n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "normalized": "This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts. This is routine meeting background about scheduling and planning, with no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "compressed": "routine meeting background scheduling planning, no additional task facts. meeting, no additional task facts. routine meeting background, no additional task facts. routine meeting background, no additional task facts., no additional task facts.\n\nکد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است.",
+  "word_diff": [
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "and"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is",
+        "routine"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "background",
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "This",
+        "is",
+        "routine",
+        "meeting",
+        "background",
+        "about",
+        "scheduling",
+        "and",
+        "planning"
+      ],
+      "optimized": []
+    },
+    {
+      "tag": "delete",
+      "original": [
+        "with"
+      ],
+      "optimized": []
+    }
+  ],
+  "question": "What is the access code? Reply only with the number."
+}

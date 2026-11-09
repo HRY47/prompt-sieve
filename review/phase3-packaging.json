@@ -1,0 +1,7 @@
+{
+  "wheel_build": "passed; existing setuptools; no build isolation",
+  "isolated_wheel_install": "passed; core without optional dependencies",
+  "console_worker_outside_source_tree": "passed; heuristic counter; 5-second deadline",
+  "pip_check": "passed",
+  "paid_api_requests": 0
+}

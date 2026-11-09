@@ -1,0 +1,640 @@
+{
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "dependencies": {
+    "pip": "25.2",
+    "pytest": "9.0.1",
+    "pluggy": "1.6.0",
+    "packaging": "26.0",
+    "iniconfig": "2.3.0",
+    "pygments": "2.19.2",
+    "colorama": "0.4.6",
+    "setuptools": null,
+    "tiktoken": null,
+    "openai": null,
+    "argostranslate": null,
+    "llmlingua": null,
+    "torch": null,
+    "transformers": null
+  },
+  "log_measurements": [
+    {
+      "lines": 502,
+      "input_bytes": 23472,
+      "optimized_bytes": 23472,
+      "byte_compression_ratio": 1.0,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 5868,
+      "optimized_tokens_estimated": 5868,
+      "savings_estimated": 0.0,
+      "strategy": "count_only",
+      "wall_seconds": 0.013942400000814814,
+      "cpu_seconds": 0.015625,
+      "python_allocation_peak_bytes": 23565,
+      "process_peak_working_set_bytes": 27324416,
+      "process_peak_before_bytes": 27222016,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    },
+    {
+      "lines": 502,
+      "input_bytes": 23472,
+      "optimized_bytes": 123,
+      "byte_compression_ratio": 0.005240286298568507,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 5868,
+      "optimized_tokens_estimated": 31,
+      "savings_estimated": 0.9947171097477846,
+      "strategy": "logs",
+      "wall_seconds": 0.056043500000669155,
+      "cpu_seconds": 0.0625,
+      "python_allocation_peak_bytes": 132829,
+      "process_peak_working_set_bytes": 27545600,
+      "process_peak_before_bytes": 27033600,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    },
+    {
+      "lines": 10002,
+      "input_bytes": 478972,
+      "optimized_bytes": 478972,
+      "byte_compression_ratio": 1.0,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 119743,
+      "optimized_tokens_estimated": 119743,
+      "savings_estimated": 0.0,
+      "strategy": "count_only",
+      "wall_seconds": 0.2175654000020586,
+      "cpu_seconds": 0.203125,
+      "python_allocation_peak_bytes": 479065,
+      "process_peak_working_set_bytes": 28975104,
+      "process_peak_before_bytes": 28897280,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    },
+    {
+      "lines": 10002,
+      "input_bytes": 478972,
+      "optimized_bytes": 125,
+      "byte_compression_ratio": 0.00026097558938727107,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 119743,
+      "optimized_tokens_estimated": 31,
+      "savings_estimated": 0.9997411122153278,
+      "strategy": "logs",
+      "wall_seconds": 0.9792592000012519,
+      "cpu_seconds": 0.984375,
+      "python_allocation_peak_bytes": 2415793,
+      "process_peak_working_set_bytes": 31895552,
+      "process_peak_before_bytes": 29143040,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    },
+    {
+      "lines": 100002,
+      "input_bytes": 4888972,
+      "optimized_bytes": 4888972,
+      "byte_compression_ratio": 1.0,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 1222243,
+      "optimized_tokens_estimated": 1222243,
+      "savings_estimated": 0.0,
+      "strategy": "count_only",
+      "wall_seconds": 1.942065499999444,
+      "cpu_seconds": 1.890625,
+      "python_allocation_peak_bytes": 4889065,
+      "process_peak_working_set_bytes": 42729472,
+      "process_peak_before_bytes": 42729472,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    },
+    {
+      "lines": 100002,
+      "input_bytes": 4888972,
+      "optimized_bytes": 126,
+      "byte_compression_ratio": 2.577228914381183e-05,
+      "counter": "heuristic(rough)",
+      "original_tokens_estimated": 1222243,
+      "optimized_tokens_estimated": 32,
+      "savings_estimated": 0.9999738186269015,
+      "strategy": "logs",
+      "wall_seconds": 8.50745470000038,
+      "cpu_seconds": 8.46875,
+      "python_allocation_peak_bytes": 24371603,
+      "process_peak_working_set_bytes": 70619136,
+      "process_peak_before_bytes": 42614784,
+      "gpu_vram_bytes": null,
+      "target_model_inference": false
+    }
+  ],
+  "benchmark": {
+    "cases": 6,
+    "original_tokens": 5161,
+    "optimized_tokens": 137,
+    "token_savings": 0.9734547568300717,
+    "original_accuracy": 0.6,
+    "optimized_accuracy": 0.6,
+    "graded_cases": 5,
+    "agreement_rate": 0.5,
+    "answers_changed_vs_original": 3,
+    "errors": 0
+  },
+  "benchmark_total_seconds": 0.6195330000009562,
+  "benchmark_backend": "deterministic local Python command, not an LLM",
+  "exact_token_measurements_available": false,
+  "optimization_model_tokens": 0,
+  "optimization_api_requests": 0,
+  "timing_includes_tracemalloc_overhead": true,
+  "measured_target_model_memory_savings": null,
+  "report_scope": "phase3 is current. phase2 and original top-level Windows fields are retained historical evidence. Old heuristic log measurements remain estimates.",
+  "phase2": {
+    "date": "2026-11-08",
+    "environment": {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+      "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "dependencies": {
+        "tokopt": "0.1.0",
+        "tiktoken": "0.14.0",
+        "argostranslate": "1.11.0",
+        "llmlingua": "0.2.2",
+        "transformers": "4.57.6",
+        "torch": "2.15.0",
+        "tokenizers": "0.22.2"
+      }
+    },
+    "wsl2": true,
+    "cuda_available": false,
+    "cpu_threads_per_model_process": 2,
+    "baseline_tests": {
+      "passed": 107,
+      "skipped": 23
+    },
+    "final_tests": {
+      "passed": 147,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 164.084,
+      "original_real_integration_cases": 23,
+      "new_regression_cases": 17,
+      "xml": "review/phase2-pytest.xml"
+    },
+    "benchmark": {
+      "cases": 24,
+      "independent_expected_answers": true,
+      "grading": "exact answer after lowercase and edge punctuation normalization",
+      "mock_inference": false,
+      "regressions": [
+        "fa-code"
+      ],
+      "improvements": [
+        "ja-safety",
+        "mixed-safety",
+        "mixed-file"
+      ],
+      "original": {
+        "correct": 12,
+        "text_tokens": 4135,
+        "chat_tokens": 4831,
+        "output_tokens": 65,
+        "seconds": 30.974002634005046
+      },
+      "optimized": {
+        "correct": 14,
+        "text_tokens": 2242,
+        "chat_tokens": 2938,
+        "output_tokens": 64,
+        "seconds": 20.554276322005535
+      },
+      "text_token_savings": 0.45779927448609437,
+      "chat_token_savings": 0.391844338646243,
+      "optimization_seconds": 24.231290292998892,
+      "median_optimization_seconds": 0.7269379919998755,
+      "optimized_inference_plus_optimization_seconds": 44.78556661500443
+    },
+    "model_snapshots": {
+      "microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank": [
+        "5f0c82792b7ea14c6484e015b6a072009496b7f2"
+      ],
+      "Qwen/Qwen2.5-0.5B-Instruct": [
+        "7ae557604adf67be50417f59c2c2f167def9a775"
+      ],
+      "Qwen/Qwen2.5-7B-Instruct": [
+        "a09a35458c702b33eeacc393d103063234e8bc28"
+      ],
+      "facebook/nllb-200-distilled-600M": [
+        "a3e77be725cf30383f1faeb8d2f0b0ea98ac554e",
+        "f8d333a098d19b4fd9a8b18f94170487ad3f821d"
+      ]
+    },
+    "artifacts": {
+      "tokenizers": "review/phase2-tokenizers.json",
+      "translation": "review/phase2-translation.json",
+      "lingua": "review/phase2-lingua.json",
+      "benchmark": "review/phase2-benchmark.json"
+    },
+    "source_sha256": {
+      "src/tokopt/check.py": "e41847aa2f9596cf9705043e9ea1b895fee4cc2ce8448e90c8f078ecf22a1c11",
+      "src/tokopt/optimizer.py": "183b4cc38448bea6bf2a80df31dd478a5d36322017a8b82a885ced5e1eeb6edb",
+      "src/tokopt/strategies/translate.py": "d413a77636e609698f5229a3e4b10e458aaf790d45d822c9e9d921ae40ab7781",
+      "src/tokopt/strategies/lingua.py": "42d403674782b5e930dd16182bf4cd2fe14da2677f3b4ef1d12471c142f7db57",
+      "scripts/phase2_measurements.py": "7240da4369364f19697b2a49c50a379b3d29a15fc472cbba78fd110efcef98d9",
+      "tests/test_phase2_regressions.py": "70b55df4c8974ee9cadc51f943c60431cc57b6bf5695b88caaedff6105b5e57e"
+    },
+    "initial_example_o200k_tokens": {
+      "original": 197,
+      "fa": 259,
+      "zh": 211,
+      "ja": 515
+    },
+    "packaging": {
+      "wheel_build": "passed; no build isolation; existing setuptools",
+      "isolated_wheel_install": "passed; no dependencies; project-local disposable venv",
+      "console_version": "tokopt 0.1.0",
+      "console_heuristic_count_example": 229,
+      "wheel_sha256": "92d733eef5df6c8c3cb5c84ac673c49cb2689d59d959c383ad742ffa7522d71c",
+      "pip_check": "No broken requirements found"
+    },
+    "paid_api_requests": 0,
+    "published": false,
+    "target_model_memory_savings_measured": false,
+    "verdict": "Not ready for a release claiming reliable answer or semantic preservation; experimental alpha only with limitations."
+  },
+  "phase3": {
+    "date": "2026-11-08",
+    "environment": {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+      "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "dependencies": {
+        "tokopt": "0.1.0",
+        "pytest": "9.2.0",
+        "torch": "2.15.0",
+        "transformers": "4.57.6",
+        "tokenizers": "0.22.2",
+        "llmlingua": "0.2.2",
+        "argostranslate": "1.11.0",
+        "tiktoken": "0.14.0"
+      },
+      "cuda_available": false
+    },
+    "tests": {
+      "passed": 182,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 178.24,
+      "real_integration_cases": 25,
+      "new_phase3_cases": 35
+    },
+    "baseline": {
+      "correct": 69,
+      "input_text_tokens": 21963,
+      "input_chat_tokens": 25443,
+      "output_tokens": 404,
+      "reference_generation_seconds": 155.01447934199768,
+      "reference_generation_cpu_seconds": 311.752283749
+    },
+    "strategies": {
+      "fast": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 69,
+        "paired_regressions": [],
+        "paired_improvements": [],
+        "input_text_tokens": 11383,
+        "input_chat_tokens": 14863,
+        "output_tokens": 428,
+        "optimization_seconds": 0.15864773799876275,
+        "optimization_cpu_seconds": 0.1578128989999943,
+        "optimization_average_cpu_percent": 99.47377818978109,
+        "optimization_sampled_peak_process_rss_bytes": 2854752256,
+        "reference_generation_seconds": 101.34832049099623,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "original": 110,
+          "logs": 10
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.41583146641512403,
+        "text_token_savings": 0.4817192551108683,
+        "paired_warm_compute_seconds": 101.50696822899499
+      },
+      "normalize": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 69,
+        "paired_regressions": [],
+        "paired_improvements": [],
+        "input_text_tokens": 21963,
+        "input_chat_tokens": 25443,
+        "output_tokens": 404,
+        "optimization_seconds": 0.1287914599861324,
+        "optimization_cpu_seconds": 0.12801685800000762,
+        "optimization_average_cpu_percent": 99.39856106436856,
+        "optimization_sampled_peak_process_rss_bytes": 2855137280,
+        "reference_generation_seconds": 155.01447934199768,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "original": 120
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.0,
+        "text_token_savings": 0.0,
+        "paired_warm_compute_seconds": 155.14327080198382
+      },
+      "logs": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 69,
+        "paired_regressions": [],
+        "paired_improvements": [],
+        "input_text_tokens": 11383,
+        "input_chat_tokens": 14863,
+        "output_tokens": 428,
+        "optimization_seconds": 0.21236110300287692,
+        "optimization_cpu_seconds": 0.21289849599999222,
+        "optimization_average_cpu_percent": 100.25305622805512,
+        "optimization_sampled_peak_process_rss_bytes": 2856177664,
+        "reference_generation_seconds": 101.34832049099623,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "original": 110,
+          "logs": 10
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.41583146641512403,
+        "text_token_savings": 0.4817192551108683,
+        "paired_warm_compute_seconds": 101.5606815939991
+      },
+      "lingua": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 70,
+        "paired_regressions": [],
+        "paired_improvements": [
+          "ordering-5"
+        ],
+        "input_text_tokens": 17672,
+        "input_chat_tokens": 21152,
+        "output_tokens": 378,
+        "optimization_seconds": 79.71961282399934,
+        "optimization_cpu_seconds": 153.5858030369999,
+        "optimization_average_cpu_percent": 192.6574874066164,
+        "optimization_sampled_peak_process_rss_bytes": 3342045184,
+        "reference_generation_seconds": 133.08075995599665,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "lingua@0.5": 93,
+          "original": 27
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.16865149549974456,
+        "text_token_savings": 0.19537403815507903,
+        "paired_warm_compute_seconds": 212.800372779996
+      },
+      "translation": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 70,
+        "paired_regressions": [],
+        "paired_improvements": [
+          "access-6"
+        ],
+        "input_text_tokens": 21825,
+        "input_chat_tokens": 25305,
+        "output_tokens": 400,
+        "optimization_seconds": 41.337747796002986,
+        "optimization_cpu_seconds": 85.06528317200005,
+        "optimization_average_cpu_percent": 205.78112671204875,
+        "optimization_sampled_peak_process_rss_bytes": 4203769856,
+        "reference_generation_seconds": 154.01241158899757,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "original": 119,
+          "translate:en": 1
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.005423888692371204,
+        "text_token_savings": 0.006283294631880931,
+        "paired_warm_compute_seconds": 195.35015938500055
+      },
+      "combined": {
+        "cases": 120,
+        "baseline_correct": 69,
+        "optimized_correct": 71,
+        "paired_regressions": [],
+        "paired_improvements": [
+          "access-6",
+          "ordering-5"
+        ],
+        "input_text_tokens": 8297,
+        "input_chat_tokens": 11777,
+        "output_tokens": 444,
+        "optimization_seconds": 113.14155110099546,
+        "optimization_cpu_seconds": 232.41189284900025,
+        "optimization_average_cpu_percent": 205.4169229494993,
+        "optimization_sampled_peak_process_rss_bytes": 4251230208,
+        "reference_generation_seconds": 89.42824327099515,
+        "actual_new_generation_seconds": 0,
+        "selected": {
+          "lingua@0.5": 82,
+          "original": 27,
+          "translate:en": 1,
+          "logs": 10
+        },
+        "reused_generations": 120,
+        "chat_token_savings": 0.5371221947097433,
+        "text_token_savings": 0.6222282930382916,
+        "paired_warm_compute_seconds": 202.5697943719906
+      }
+    },
+    "pre_safeguard_regressions": {
+      "fast": [],
+      "normalize": [],
+      "logs": [],
+      "lingua": [
+        {
+          "id": "units-3",
+          "expected": "512",
+          "original": "512",
+          "optimized": "4096"
+        },
+        {
+          "id": "units-4",
+          "expected": "-5",
+          "original": "-5",
+          "optimized": "-20°C"
+        }
+      ],
+      "translation": [],
+      "combined": [
+        {
+          "id": "units-3",
+          "expected": "512",
+          "original": "512",
+          "optimized": "4096"
+        },
+        {
+          "id": "units-4",
+          "expected": "-5",
+          "original": "-5",
+          "optimized": "-20°C"
+        }
+      ]
+    },
+    "initial_real_unique_inputs": 244,
+    "revised_policy_evidence": "All 720 selected inputs and answers/counts match retained real observations; original failed arms preserved; not held-out; timings reuse real generation references and freshly measure optimization.",
+    "deadlines": {
+      "cancellations": [
+        {
+          "budget_seconds": 0.05,
+          "actual_seconds": 0.05168465299993841,
+          "timed_out": true,
+          "original_returned": true,
+          "original_tokens": null,
+          "warnings": [
+            "optimization timeout; original returned"
+          ],
+          "live_workers": [],
+          "child_processes": []
+        },
+        {
+          "budget_seconds": 0.5,
+          "actual_seconds": 0.5024300459999722,
+          "timed_out": true,
+          "original_returned": true,
+          "original_tokens": 680,
+          "warnings": [
+            "optimization timeout; original returned"
+          ],
+          "live_workers": [],
+          "child_processes": []
+        },
+        {
+          "budget_seconds": 2,
+          "actual_seconds": 2.0058341300000393,
+          "timed_out": true,
+          "original_returned": true,
+          "original_tokens": 680,
+          "warnings": [
+            "optimization timeout; original returned"
+          ],
+          "live_workers": [],
+          "child_processes": []
+        }
+      ],
+      "hf_snapshot": {
+        "seconds": 1.1746996820002096,
+        "timed_out": false,
+        "count": 6,
+        "expected_count": 6,
+        "warnings": []
+      },
+      "paid_api_requests": 0
+    },
+    "isolated_rule_performance": [
+      {
+        "strategy": "fast",
+        "counter": "tiktoken:o200k_base",
+        "counter_initialization_seconds": 0.32425392999994074,
+        "optimization_seconds": 0.05239836999953695,
+        "cpu_seconds": 0.051283303999999974,
+        "cpu_percent": 97.87194525412369,
+        "peak_process_rss_bytes": 101572608,
+        "cache_probe": {
+          "cold_seconds": 0.010155846000088786,
+          "warm_seconds": 0.00048448300003656186,
+          "cache_hit": true,
+          "storage": {
+            "entries": 1,
+            "bytes": 1347,
+            "max_entries": 128,
+            "max_bytes": 8388608
+          }
+        },
+        "target_model_inference": false,
+        "gpu_vram_bytes": null
+      },
+      {
+        "strategy": "normalize",
+        "counter": "tiktoken:o200k_base",
+        "counter_initialization_seconds": 0.2975474620006935,
+        "optimization_seconds": 0.022609145000387798,
+        "cpu_seconds": 0.021600575999999982,
+        "cpu_percent": 95.53911038931142,
+        "peak_process_rss_bytes": 100786176,
+        "cache_probe": {
+          "cold_seconds": 0.0002633740004966967,
+          "warm_seconds": 0.00012364299982436933,
+          "cache_hit": true,
+          "storage": {
+            "entries": 1,
+            "bytes": 1347,
+            "max_entries": 128,
+            "max_bytes": 8388608
+          }
+        },
+        "target_model_inference": false,
+        "gpu_vram_bytes": null
+      },
+      {
+        "strategy": "logs",
+        "counter": "tiktoken:o200k_base",
+        "counter_initialization_seconds": 0.30979557699993165,
+        "optimization_seconds": 0.09270994999951654,
+        "cpu_seconds": 0.09135499899999999,
+        "cpu_percent": 98.53850530657863,
+        "peak_process_rss_bytes": 101576704,
+        "cache_probe": {
+          "cold_seconds": 0.000305143000332464,
+          "warm_seconds": 0.00014418199953070143,
+          "cache_hit": true,
+          "storage": {
+            "entries": 1,
+            "bytes": 1347,
+            "max_entries": 128,
+            "max_bytes": 8388608
+          }
+        },
+        "target_model_inference": false,
+        "gpu_vram_bytes": null
+      }
+    ],
+    "packaging": {
+      "wheel_build": "passed; existing setuptools; no build isolation",
+      "isolated_wheel_install": "passed; core without optional dependencies",
+      "console_worker_outside_source_tree": "passed; heuristic counter; 5-second deadline",
+      "pip_check": "passed",
+      "paid_api_requests": 0
+    },
+    "source_sha256": {
+      "src/tokopt/runtime.py": "1536b47b2cb9a33ec9010c3dcf88bd3dd97ebb52f98cc23bcb1c73a043a5f00f",
+      "src/tokopt/optimizer.py": "24592cc5500411198ee138e12471ccfea415d63664fe31502964e6a3cc2324b0",
+      "src/tokopt/check.py": "96a6e5aa99176e6611c2ea6ee8b58fa510cd82cf2da59c71c7e34b28097ec272",
+      "src/tokopt/protect.py": "e74969de2546438545c1d8182c985fee5062c6d8e5b74508a3095c135072f118",
+      "src/tokopt/counters.py": "adee27329f838da76a6026dc09903b6bface33b4546e7b1947992a7cb578adbb",
+      "src/tokopt/cli.py": "e09d101b022231c4c5bf0d6c14b48f9e2aa27f9b7bcc2acf433400cfd4dc73fb",
+      "src/tokopt/bench.py": "a2e2ed8ed6e58e4451f729274ffdc9d9c082a18fd872fb3560426bbe7bd0fd27",
+      "src/tokopt/strategies/normalize.py": "cf0d087512e3154476961ed35022ef9baec1e3fb556f6e62704902556b7bf73b",
+      "tests/test_phase3_reliability.py": "c6f02f83ca93bfe47b3ffc49f586621d25d0b3b662da04677f78c9f8a2b13a06",
+      "tests/test_phase3_integrations.py": "10f9c6d4a7a8b4bf3e1dd641d863113cb262e6f1b2c5f3fc5efc134e76624732",
+      "scripts/phase3_ablation.py": "2d8f27dcdb7d7702fa5f6f95573486d0b3c94fdcaa2b0a2e1070c4f999fc7f24",
+      "scripts/phase3_benchmark.py": "b2e10b854257d81899d40b2e847e6a6d9492ad09ff9c832de8192a83d024b2ce",
+      "scripts/phase3_deadlines.py": "3d95c7ec84bf33000ceda109d56dfb158d18d8f6dfa1caaf070afb5f919846c5",
+      "scripts/phase3_rule_performance.py": "61532aa9010459835460b6ac3f32a0b184476b2deed501d457c4b0128ad390b9"
+    },
+    "artifacts": {
+      "cases": "review/phase3-cases.jsonl",
+      "baseline_observations": "review/phase3-benchmark-before-sensitive-policy.json",
+      "validated_observations": "review/phase3-observations.json",
+      "current_benchmark": "review/phase3-benchmark.json",
+      "ablation": "review/phase3-ablation.json",
+      "deadlines": "review/phase3-deadlines.json",
+      "isolated_rules": "review/phase3-rule-performance.json",
+      "tests": "review/phase3-pytest.xml"
+    },
+    "paid_api_requests": 0,
+    "published": false,
+    "verdict": "Conditionally ready for a clearly experimental alpha with fast default; no universal preservation, speed or memory guarantees. ML research overrides remain unsafe."
+  }
+}
