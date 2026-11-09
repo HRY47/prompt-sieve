@@ -123,9 +123,9 @@ def main():
     (ROOT/'review/phase3-cases.jsonl').write_text(''.join(json.dumps(c,ensure_ascii=False)+'\n' for c in cases))
     import torch
     from transformers import AutoTokenizer,AutoModelForCausalLM
-    from tokopt.counters import get_counter
-    from tokopt.optimizer import optimize
-    from tokopt.strategies.translate import ArgosTranslator
+    from promptsieve.counters import get_counter
+    from promptsieve.optimizer import optimize
+    from promptsieve.strategies.translate import ArgosTranslator
     torch.set_num_threads(2)
     tok=AutoTokenizer.from_pretrained(MODEL,local_files_only=True,trust_remote_code=False)
     with Meter() as load:
@@ -195,7 +195,7 @@ def main():
             report['strategies'][strategy]=rows
             (ROOT/'review/phase3-benchmark.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
         print('DONE',strategy,'accuracy',sum(r['optimized']['correct'] for r in rows),'regressions',[r['id'] for r in rows if r['paired_regression']],flush=True)
-    from tokopt.runtime import OptimizationCache
+    from promptsieve.runtime import OptimizationCache
     repeat=cases[-1]['prompt'];cache=OptimizationCache()
     with Meter() as cold: optimize(repeat,counter=counter,cache=cache)
     with Meter() as warm: hit=optimize(repeat,counter=counter,cache=cache)

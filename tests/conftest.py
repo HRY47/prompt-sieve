@@ -1,6 +1,6 @@
 import re
 import pytest
-from tokopt.counters import HeuristicCounter
+from promptsieve.counters import HeuristicCounter
 
 
 class FakeTranslator:

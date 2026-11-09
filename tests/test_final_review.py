@@ -6,10 +6,10 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from tokopt.bench import load_cases
-from tokopt.optimizer import optimize
-from tokopt.strategies import lingua as lingua_mod
-from tokopt.strategies.logs import LogCompressor
+from promptsieve.bench import load_cases
+from promptsieve.optimizer import optimize
+from promptsieve.strategies import lingua as lingua_mod
+from promptsieve.strategies.logs import LogCompressor
 
 ROOT = Path(__file__).parent.parent
 
@@ -121,7 +121,7 @@ def test_python_traceback_stays_contiguous(counter):
 # -- smaller defects -----------------------------------------------------------
 
 def test_failed_lingua_candidate_reports_original_count(monkeypatch, counter):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor, "available", staticmethod(lambda: (True, "")))
 
     def fail(self, text):
@@ -152,7 +152,7 @@ class HeuristicCounterFine:
 
 def _cli(*args, cwd):
     import subprocess
-    return subprocess.run([sys.executable, "-m", "tokopt", *args], capture_output=True, text=True, cwd=cwd)
+    return subprocess.run([sys.executable, "-m", "promptsieve", *args], capture_output=True, text=True, cwd=cwd)
 
 
 def test_cli_explains_configuration_errors(tmp_path):
@@ -179,11 +179,11 @@ def test_cli_still_hides_backend_error_details(tmp_path):
     ("https://ollama.example.com", "https://ollama.example.com"),
 ])
 def test_ollama_host_forms(value, expected):
-    from tokopt.bench import _ollama_base_url
+    from promptsieve.bench import _ollama_base_url
     assert _ollama_base_url(value) == expected
 
 
 def test_ollama_host_rejects_other_schemes():
-    from tokopt.bench import _ollama_base_url
+    from promptsieve.bench import _ollama_base_url
     with pytest.raises(ValueError):
         _ollama_base_url("file:///etc/passwd")

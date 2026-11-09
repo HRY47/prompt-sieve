@@ -1,6 +1,6 @@
 # PromptSieve: experimental token-aware prompt and log compression
 
-PromptSieve (Python package and CLI: `tokopt`) builds smaller versions of text,
+PromptSieve builds smaller versions of text,
 counts them with a selected counter, and selects the smallest candidate that
 passes its checks. Core strategies work without dependencies. Translation and
 model-based pruning are experimental.
@@ -22,6 +22,9 @@ unproven.
 
 ## Install
 
+The Python distribution and CLI are named `prompt-sieve`; the import package is
+`promptsieve`. The Claude Code skill is also named `prompt-sieve`.
+
 Requires Python 3.10+ (3.9 reached end of life in October 2025). The offline
 test suite has been run locally on Python 3.10 and 3.13; real optional-model
 testing ran on WSL/Python 3.12. CI covers Python 3.10, 3.12 and 3.13 on Ubuntu
@@ -36,9 +39,13 @@ python -m venv .venv
 source .venv/bin/activate
 # Windows PowerShell instead:
 # .\.venv\Scripts\Activate.ps1
+python -m pip install .
+prompt-sieve --help
+prompt-sieve doctor
+python -c "from promptsieve import optimize"
+# For development and the optional OpenAI tokenizer/backend:
 python -m pip install -e '.[openai,dev]'
 pytest -v
-tokopt doctor
 ```
 
 Extras:
@@ -56,7 +63,7 @@ Extras:
 
 ```bash
 python -m pip install -e '.[openai,argos,dev]'
-tokopt setup-languages fa zh ja  # installs both directions; requires downloads
+prompt-sieve setup-languages fa zh ja  # installs both directions; requires downloads
 ```
 
 First-use tokenizer/model downloads require network access. Dependencies have
@@ -78,10 +85,10 @@ not a prediction of latency payback. Accepted rule savings short-circuit ML.
 Translation backends load only after the cost gate.
 
 ```bash
-tokopt compress examples/pytest_run.log --mode fast --timeout 5 -o compact.log
+prompt-sieve compress examples/pytest_run.log --mode fast --timeout 5 -o compact.log
 # Explicit experiments bypass cost gates, with preservation checks still active:
-tokopt experiment examples/prompt.md -l fa,zh,ja --mode full
-tokopt compress prompt.md -s lingua --mode full --timeout 10
+prompt-sieve experiment examples/prompt.md -l fa,zh,ja --mode full
+prompt-sieve compress prompt.md -s lingua --mode full --timeout 10
 ```
 
 The Python API selects fast mode for ordinary `auto`/rule calls. For backward
@@ -123,7 +130,7 @@ TTL expiry, or `clear()` invalidates results. This does not bound upstream model
 or tokenizer caches.
 
 ```python
-from tokopt import optimize, get_counter, OptimizationCache
+from promptsieve import optimize, get_counter, OptimizationCache
 cache = OptimizationCache(max_entries=64, max_bytes=4 * 1024 * 1024,
                           ttl_seconds=120)
 result = optimize(text, counter=get_counter('openai:gpt-4o'),
@@ -188,12 +195,12 @@ text counts exclude chat protocol overhead; Anthropic counts a request.
 ## Commands
 
 ```bash
-pytest 2>&1 | tokopt compress - -q
+pytest 2>&1 | prompt-sieve compress - -q
 # Bash: use `set -o pipefail` if the test exit status must propagate.
-tokopt compress examples/pytest_run.log -s logs -o compact.log
-tokopt count examples/prompt.md -c tiktoken:o200k_base -c heuristic
-tokopt compress examples/prompt.md -s lingua --mode full --rate 0.5
-tokopt experiment examples/prompt.md -l fa,zh,ja --per-segment --show-text
+prompt-sieve compress examples/pytest_run.log -s logs -o compact.log
+prompt-sieve count examples/prompt.md -c tiktoken:o200k_base -c heuristic
+prompt-sieve compress examples/prompt.md -s lingua --mode full --rate 0.5
+prompt-sieve experiment examples/prompt.md -l fa,zh,ja --per-segment --show-text
 ```
 
 Text files must be UTF-8; malformed bytes are rejected. `-` reads stdin.
@@ -201,7 +208,7 @@ Text files must be UTF-8; malformed bytes are rejected. `-` reads stdin.
 `experiment --json --show-text` deliberately includes input-derived text.
 
 ```python
-from tokopt import optimize, get_counter
+from promptsieve import optimize, get_counter
 result = optimize(text, counter=get_counter('openai:gpt-4o'),
                   strategies=['logs'], max_tokens=4000)
 print(result.best.text)
@@ -225,7 +232,7 @@ API runners can incur charges; invoke them only when you intend to pay.
 For a deterministic local test, use a script reading UTF-8 stdin:
 
 ```bash
-tokopt bench examples/cases.jsonl -r 'cmd:python my_local_runner.py' -c heuristic -o results.jsonl
+prompt-sieve bench examples/cases.jsonl -r 'cmd:python my_local_runner.py' -c heuristic -o results.jsonl
 ```
 
 Command/Ollama runners require an explicit counter. OpenAI/Anthropic CLI runners
@@ -293,6 +300,10 @@ with these qualifications:
 
 ## Resources and measurements
 
+Reports and benchmark evidence in `review/` are historical records. They retain
+the package names, commands, paths, and measured output from their original runs.
+Current commands and imports use the names documented above.
+
 Fewer tokens may reduce dynamic KV-cache allocation for some local runtimes.
 Weights do not shrink. Reserved caches, batching and runtime allocation policies
 can prevent observable RAM/VRAM savings. Compression and translation themselves
@@ -328,12 +339,12 @@ OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 python scripts/phase3_benchmark.py
 python -m pip install -e '.[dev]'
 pytest -v  # offline unit/contract tests; integration tests skip explicitly
 # Bash; PowerShell uses $env:NAME='1' before invoking pytest:
-TOKOPT_TEST_TOKENIZERS=1 pytest tests/test_integrations.py -k tiktoken -v
-TOKOPT_TEST_ARGOS=1 pytest tests/test_integrations.py -k argos -v
-TOKOPT_TEST_LINGUA=1 pytest tests/test_integrations.py -k lingua -v
-TOKOPT_TEST_HF=1 pytest tests/test_integrations.py -k real_hf -v
-TOKOPT_TEST_NLLB=1 pytest tests/test_integrations.py -k nllb -v
-TOKOPT_TEST_PHASE3_MODEL=1 pytest tests/test_phase3_integrations.py -k persian -v
+PROMPTSIEVE_TEST_TOKENIZERS=1 pytest tests/test_integrations.py -k tiktoken -v
+PROMPTSIEVE_TEST_ARGOS=1 pytest tests/test_integrations.py -k argos -v
+PROMPTSIEVE_TEST_LINGUA=1 pytest tests/test_integrations.py -k lingua -v
+PROMPTSIEVE_TEST_HF=1 pytest tests/test_integrations.py -k real_hf -v
+PROMPTSIEVE_TEST_NLLB=1 pytest tests/test_integrations.py -k nllb -v
+PROMPTSIEVE_TEST_PHASE3_MODEL=1 pytest tests/test_phase3_integrations.py -k persian -v
 ```
 
 Install the relevant extras and language packs first. Explicitly enabled
@@ -342,7 +353,7 @@ not establish semantic quality. No CI job calls paid APIs.
 
 ## Claude Code skill
 
-Copy `skills/token-optimizer` into `~/.claude/skills/` if desired. The skill tells
+Copy `skills/prompt-sieve` into `~/.claude/skills/` if desired. The skill tells
 Claude Code to pipe large tool output through the CLI. It does not install or
 invoke a hidden hook, intercept already-read text, or optimize every prompt.
 The integration was reviewed as instructions, not exercised in Claude Code.

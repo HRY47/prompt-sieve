@@ -25,12 +25,41 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev]"
       - run: python -m pytest -v
-      - run: tokopt doctor
+      - run: prompt-sieve doctor
       - run: python -m pip wheel . --no-deps --wheel-dir dist
+      - name: Verify wheel contents and clean installation
+        shell: python
+        run: |
+          import configparser
+          import os
+          from pathlib import Path
+          import subprocess
+          import sys
+          import tempfile
+          import zipfile
+
+          wheel = next(Path("dist").glob("prompt_sieve-*.whl")).resolve()
+          with zipfile.ZipFile(wheel) as archive:
+              roots = {name.split("/")[0] for name in archive.namelist()}
+              metadata_dir = next(name for name in roots if name.endswith(".dist-info"))
+              assert roots == {"promptsieve", metadata_dir}, roots
+              entries = configparser.ConfigParser()
+              entries.read_string(archive.read(f"{metadata_dir}/entry_points.txt").decode())
+              assert dict(entries["console_scripts"]) == {"prompt-sieve": "promptsieve.cli:main"}
+          with tempfile.TemporaryDirectory() as directory:
+              environment = Path(directory) / "venv"
+              subprocess.run([sys.executable, "-m", "venv", str(environment)], check=True)
+              scripts = environment / ("Scripts" if os.name == "nt" else "bin")
+              python = scripts / ("python.exe" if os.name == "nt" else "python")
+              cli = scripts / ("prompt-sieve.exe" if os.name == "nt" else "prompt-sieve")
+              subprocess.run([str(python), "-m", "pip", "install", str(wheel)], check=True, cwd=directory)
+              for command in ("--help", "doctor"):
+                  subprocess.run([str(cli), command], check=True, cwd=directory)
+              subprocess.run([str(python), "-c", "from promptsieve import optimize; from importlib.metadata import version; print(version('prompt-sieve'))"], check=True, cwd=directory)
   tokenizer:
     runs-on: ubuntu-24.04
     env:
-      TOKOPT_TEST_TOKENIZERS: '1'
+      PROMPTSIEVE_TEST_TOKENIZERS: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

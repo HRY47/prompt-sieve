@@ -1,7 +1,7 @@
 """Fresh-process rule timing/RAM with exact o200k counts; no ML inference."""
 import json,resource,subprocess,sys,time
 from pathlib import Path
-from tokopt import optimize,OptimizationCache,get_counter
+from promptsieve import optimize,OptimizationCache,get_counter
 
 
 def child(strategy):

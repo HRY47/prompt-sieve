@@ -5,21 +5,21 @@ import pytest
 pytestmark=pytest.mark.integration
 
 
-@pytest.mark.skipif(os.getenv('TOKOPT_TEST_HF')!='1',reason='enable TOKOPT_TEST_HF=1 for loaded tokenizer snapshot transfer')
+@pytest.mark.skipif(os.getenv('PROMPTSIEVE_TEST_HF')!='1',reason='enable PROMPTSIEVE_TEST_HF=1 for loaded tokenizer snapshot transfer')
 def test_loaded_hf_snapshot_pickle_keeps_multilingual_counts():
-    from tokopt.counters import get_counter
+    from promptsieve.counters import get_counter
     counter=get_counter('hf:Qwen/Qwen2.5-0.5B-Instruct')
     restored=pickle.loads(pickle.dumps(counter))
     for text in ('Keep 42 records.','هرگز حذف نکنید.','保留42条记录。','42件を保持','2 + 3 * 4','<|im_start|>user\n42<|im_end|>','```python\nreturn -5\n```'):
         assert restored.count(text)==counter.count(text)
 
 
-@pytest.mark.skipif(os.getenv('TOKOPT_TEST_PHASE3_MODEL')!='1',reason='enable TOKOPT_TEST_PHASE3_MODEL=1 for cached Qwen Persian replay')
+@pytest.mark.skipif(os.getenv('PROMPTSIEVE_TEST_PHASE3_MODEL')!='1',reason='enable PROMPTSIEVE_TEST_PHASE3_MODEL=1 for cached Qwen Persian replay')
 def test_real_persian_original_legacy_and_repaired_answers():
     import torch
     from transformers import AutoTokenizer,AutoModelForCausalLM
-    from tokopt import optimize
-    from tokopt.counters import HeuristicCounter
+    from promptsieve import optimize
+    from promptsieve.counters import HeuristicCounter
     fixture=json.loads((Path(__file__).resolve().parents[1]/'review/phase3-legacy-fixture.json').read_text())
     torch.set_num_threads(2)
     tok=AutoTokenizer.from_pretrained(fixture['model'],revision=fixture['revision'],local_files_only=True,trust_remote_code=False)

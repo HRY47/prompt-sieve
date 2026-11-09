@@ -1,8 +1,8 @@
 """Synthetic realistic format fixtures; not output from external build tools."""
 import pytest
 
-from tokopt.optimizer import optimize
-from tokopt.strategies.logs import LogCompressor
+from promptsieve.optimizer import optimize
+from promptsieve.strategies.logs import LogCompressor
 
 
 FORMATS = {

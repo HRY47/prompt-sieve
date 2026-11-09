@@ -3,7 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from tokopt.bench import CommandRunner, load_cases, run_bench, score, summarize
+from promptsieve.bench import CommandRunner, load_cases, run_bench, score, summarize
 
 ROOT = Path(__file__).parent.parent
 PY = sys.executable
@@ -33,7 +33,7 @@ def test_bench_with_command_runner(tmp_path, counter):
 
 
 def run_cli(*args, stdin=None):
-    return subprocess.run([PY, "-m", "tokopt", *args], input=stdin, capture_output=True, text=True, cwd=ROOT)
+    return subprocess.run([PY, "-m", "promptsieve", *args], input=stdin, capture_output=True, text=True, cwd=ROOT)
 
 
 def test_cli_compress_stdin():

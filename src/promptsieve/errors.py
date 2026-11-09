@@ -1,4 +1,4 @@
-"""Errors whose messages are written by tokopt itself.
+"""Errors whose messages are written by PromptSieve itself.
 
 The CLI hides messages from other exceptions because backend errors can embed
 prompts, commands or credentials. UsageError messages never contain input text,

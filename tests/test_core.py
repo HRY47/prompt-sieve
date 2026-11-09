@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from tokopt.check import chrf, critical_items, normalize_digits, preservation
-from tokopt.counters import HeuristicCounter, get_counter
-from tokopt.protect import join_segments, mask, split_segments, unmask
-from tokopt.strategies.normalize import normalize
+from promptsieve.check import chrf, critical_items, normalize_digits, preservation
+from promptsieve.counters import HeuristicCounter, get_counter
+from promptsieve.protect import join_segments, mask, split_segments, unmask
+from promptsieve.strategies.normalize import normalize
 
 EX = Path(__file__).parent.parent / "examples"
 

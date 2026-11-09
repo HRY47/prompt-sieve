@@ -1,6 +1,6 @@
 """Reproduce local review measurements without APIs or model downloads.
 
-Run with PYTHONPATH=src if tokopt is not installed. Output contains generated
+Run with PYTHONPATH=src if PromptSieve is not installed. Output contains generated
 fixtures only, never user prompts, environment variables or credentials.
 """
 from __future__ import annotations
@@ -17,9 +17,9 @@ import tempfile
 import time
 import tracemalloc
 
-from tokopt.bench import CommandRunner, run_bench, summarize, results_jsonl
-from tokopt.counters import HeuristicCounter, get_counter
-from tokopt.optimizer import optimize
+from promptsieve.bench import CommandRunner, run_bench, summarize, results_jsonl
+from promptsieve.counters import HeuristicCounter, get_counter
+from promptsieve.optimizer import optimize
 
 
 def peak_rss_bytes():

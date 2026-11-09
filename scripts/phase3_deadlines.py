@@ -1,8 +1,8 @@
 """Measure real worker cancellation and loaded-tokenizer snapshot transfer."""
 import json,multiprocessing as mp,time
 from pathlib import Path
-from tokopt import optimize
-from tokopt.counters import HeuristicCounter,get_counter
+from promptsieve import optimize
+from promptsieve.counters import HeuristicCounter,get_counter
 
 
 def main():

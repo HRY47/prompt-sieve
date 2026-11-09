@@ -1,9 +1,9 @@
 """Protection regressions; these deterministic tests do not prove model quality."""
 from types import SimpleNamespace
 import pytest
-from tokopt.strategies.translate import ArgosTranslator, translate_text
-from tokopt.optimizer import optimize
-from tokopt.check import chrf
+from promptsieve.strategies.translate import ArgosTranslator, translate_text
+from promptsieve.optimizer import optimize
+from promptsieve.check import chrf
 
 
 def translator():
@@ -51,12 +51,12 @@ def test_chrf_identical_short_and_multilingual(text):
     ("削除しないでください", "削除してください"),
 ])
 def test_multilingual_critical_instruction_loss(original, candidate):
-    from tokopt.check import preservation
+    from promptsieve.check import preservation
     assert not preservation(original, candidate).ok
 
 
 def test_lingua_forces_actual_case_literals_and_repeated_words(monkeypatch):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     calls = []
     def compress_prompt(text, **kw):
         calls.append(kw)
@@ -69,7 +69,7 @@ def test_lingua_forces_actual_case_literals_and_repeated_words(monkeypatch):
 
 
 def test_lingua_force_vocabulary_overflow_keeps_source(monkeypatch):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     def fail(self):
         raise AssertionError("must not load model for unsupported force vocabulary")
     monkeypatch.setattr(LinguaCompressor, "_get", fail)
@@ -79,14 +79,14 @@ def test_lingua_force_vocabulary_overflow_keeps_source(monkeypatch):
 
 @pytest.mark.parametrize("candidate", ["保留42条记录", "42件を保持", "۴۲ رکورد"])
 def test_number_survives_cjk_adjacency_and_localized_digits(candidate):
-    from tokopt.check import preservation
+    from promptsieve.check import preservation
     assert preservation("Keep 42 records", candidate, same_language=False).ok
 
 
 
 def test_lingua_auto_cpu_and_explicit_cpu_share_model(monkeypatch):
     import sys
-    import tokopt.strategies.lingua as module
+    import promptsieve.strategies.lingua as module
     calls = []
     def load(**kw):
         calls.append(kw)

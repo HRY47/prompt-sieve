@@ -1,4 +1,4 @@
-"""tokopt - token-aware prompt optimizer."""
+"""PromptSieve - token-aware prompt optimizer."""
 from .counters import get_counter, TokenCounter, HeuristicCounter
 from .optimizer import optimize, OptimizeResult, Candidate
 from .check import preservation, chrf

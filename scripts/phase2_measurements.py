@@ -13,9 +13,9 @@ import sys
 import time
 from pathlib import Path
 
-from tokopt.check import preservation
-from tokopt.counters import get_counter
-from tokopt.optimizer import optimize
+from promptsieve.check import preservation
+from promptsieve.counters import get_counter
+from promptsieve.optimizer import optimize
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES = {
@@ -40,7 +40,7 @@ def write(mode, payload):
                   platform=platform.platform(), peak_process_rss_bytes=peak(),
                   gpu_vram_bytes=None, paid_api_requests=0, result=payload)
     report["dependencies"] = {}
-    for name in ("tokopt", "tiktoken", "argostranslate", "llmlingua", "transformers", "torch", "tokenizers"):
+    for name in ("prompt-sieve", "tiktoken", "argostranslate", "llmlingua", "transformers", "torch", "tokenizers"):
         try: report["dependencies"][name] = md.version(name)
         except md.PackageNotFoundError: report["dependencies"][name] = None
     dest = ROOT / "review" / f"phase2-{mode}.json"
@@ -59,7 +59,7 @@ def tokenizers():
 
 
 def translation():
-    from tokopt.strategies.translate import ArgosTranslator, translate_text
+    from promptsieve.strategies.translate import ArgosTranslator, translate_text
     tr = ArgosTranslator()
     counter = get_counter("tiktoken:o200k_base")
     rows = []
@@ -76,7 +76,7 @@ def translation():
 
 
 def lingua():
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     import torch
     torch.set_num_threads(2)
     counter=get_counter("tiktoken:o200k_base")
@@ -97,7 +97,7 @@ def lingua():
 def benchmark():
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
-    from tokopt.strategies.translate import ArgosTranslator
+    from promptsieve.strategies.translate import ArgosTranslator
     torch.set_num_threads(2)
     model_id="Qwen/Qwen2.5-0.5B-Instruct"
     start=time.perf_counter()

@@ -1,14 +1,14 @@
-"""tokopt command-line interface.
+"""PromptSieve command-line interface.
 
-  tokopt count FILE [-c SPEC ...]          token counts under one or more tokenizers
-  tokopt compress FILE [-s logs|lingua|auto] [-o OUT]
+  prompt-sieve count FILE [-c SPEC ...]          token counts under one or more tokenizers
+  prompt-sieve compress FILE [-s logs|lingua|auto] [-o OUT]
                                            write the smallest passing version
-  tokopt experiment FILE -l fa,zh,ja       multilingual token experiment (table)
-  tokopt bench CASES.jsonl -r RUNNER       same-answer accuracy benchmark
-  tokopt setup-languages fa zh ja          install Argos language packs
-  tokopt doctor                            show which backends are available
+  prompt-sieve experiment FILE -l fa,zh,ja       multilingual token experiment (table)
+  prompt-sieve bench CASES.jsonl -r RUNNER       same-answer accuracy benchmark
+  prompt-sieve setup-languages fa zh ja          install Argos language packs
+  prompt-sieve doctor                            show which backends are available
 
-FILE may be "-" for stdin, e.g.  pytest 2>&1 | tokopt compress -
+FILE may be "-" for stdin, e.g.  pytest 2>&1 | prompt-sieve compress -
 """
 from __future__ import annotations
 
@@ -188,7 +188,7 @@ def cmd_setup_languages(a):
         for line in install_argos_languages(a.langs, pivot=a.src):
             print(line)
     except ImportError:
-        sys.exit("error: pip install 'tokopt[argos]' first")
+        sys.exit("error: pip install 'prompt-sieve[argos]' first")
 
 
 def cmd_doctor(a):
@@ -209,8 +209,8 @@ def cmd_doctor(a):
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="tokopt", description="Token-aware prompt optimizer")
-    p.add_argument("--version", action="version", version=f"tokopt {__version__}")
+    p = argparse.ArgumentParser(prog="prompt-sieve", description="PromptSieve: token-aware prompt optimizer")
+    p.add_argument("--version", action="version", version=f"PromptSieve {__version__}")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("count", help="count tokens")

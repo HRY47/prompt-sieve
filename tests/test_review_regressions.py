@@ -5,12 +5,12 @@ import sys
 
 import pytest
 
-from tokopt.bench import CaseResult, CommandRunner, load_cases, run_bench, score, summarize
-from tokopt.check import preservation
-from tokopt.optimizer import optimize
-from tokopt.protect import mask, split_segments, unmask
-from tokopt.strategies.logs import LogCompressor
-from tokopt.strategies.normalize import normalize
+from promptsieve.bench import CaseResult, CommandRunner, load_cases, run_bench, score, summarize
+from promptsieve.check import preservation
+from promptsieve.optimizer import optimize
+from promptsieve.protect import mask, split_segments, unmask
+from promptsieve.strategies.logs import LogCompressor
+from promptsieve.strategies.normalize import normalize
 
 
 @pytest.mark.parametrize("line", [

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tokopt.strategies.logs import LogCompressor, looks_like_log
+from promptsieve.strategies.logs import LogCompressor, looks_like_log
 
 LOG = (Path(__file__).parent.parent / "examples" / "pytest_run.log").read_text()
 

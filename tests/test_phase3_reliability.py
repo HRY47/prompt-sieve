@@ -3,10 +3,10 @@ import json
 import multiprocessing as mp
 import time
 import pytest
-from tokopt import optimize, OptimizationCache
-from tokopt.check import preservation
-from tokopt.counters import HeuristicCounter
-from tokopt.strategies.normalize import normalize
+from promptsieve import optimize, OptimizationCache
+from promptsieve.check import preservation
+from promptsieve.counters import HeuristicCounter
+from promptsieve.strategies.normalize import normalize
 
 FILLER="This is routine meeting background about scheduling and planning, with no additional task facts. "*5
 FACT="کد دسترسی 42 است. هرگز پایگاه داده را حذف نکنید. فایل تاییدشده `config.yaml` است."
@@ -20,7 +20,7 @@ def test_persian_regression_keeps_exact_separator():
 
 
 def test_mixed_language_lingua_fails_before_model_load(monkeypatch):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor,'available',lambda: (_ for _ in ()).throw(AssertionError('model loaded')))
     prompt=FILLER+"\n\n"+FACT
     result=optimize(prompt,counter=HeuristicCounter(),strategies=['lingua'],cache=False)
@@ -119,7 +119,7 @@ def test_unpicklable_backend_fails_safe():
 
 
 def test_fast_mode_skips_short_ml_and_balanced_respects_rules(monkeypatch):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor,'available',lambda: (_ for _ in ()).throw(AssertionError('model loaded')))
     r=optimize('short text',counter=HeuristicCounter(),strategies=['lingua'],mode='fast',cache=False)
     assert not next(c for c in r.candidates if c.name.startswith('lingua')).passed
@@ -129,7 +129,7 @@ def test_fast_mode_skips_short_ml_and_balanced_respects_rules(monkeypatch):
 
 
 def test_paired_accuracy_reports_regressions_and_improvements():
-    from tokopt.bench import CaseResult,summarize
+    from promptsieve.bench import CaseResult,summarize
     rows=[CaseResult('worse','x',1,1,0,True,False),CaseResult('better','x',1,1,0,False,True)]
     s=summarize(rows)
     assert s['paired_regressions']==['worse'] and s['paired_improvements']==['better']
@@ -139,21 +139,21 @@ def test_paired_accuracy_reports_regressions_and_improvements():
 def test_cli_does_not_overwrite_original(tmp_path):
     import subprocess,sys
     p=tmp_path/'prompt.txt'; p.write_bytes(b'keep original\r\n')
-    r=subprocess.run([sys.executable,'-m','tokopt','compress',str(p),'-o',str(p),'-c','heuristic'],capture_output=True)
+    r=subprocess.run([sys.executable,'-m','promptsieve','compress',str(p),'-o',str(p),'-c','heuristic'],capture_output=True)
     assert r.returncode!=0 and p.read_bytes()==b'keep original\r\n'
 
 
 def test_cli_timeout_returns_original(tmp_path):
     import subprocess,sys
     p=tmp_path/'prompt.txt'; p.write_text('keep original')
-    r=subprocess.run([sys.executable,'-m','tokopt','compress',str(p),'--timeout','0.001','-c','heuristic','--json'],capture_output=True,text=True)
+    r=subprocess.run([sys.executable,'-m','promptsieve','compress',str(p),'--timeout','0.001','-c','heuristic','--json'],capture_output=True,text=True)
     assert r.returncode==0 and r.stdout=='keep original'
     assert json.loads(r.stderr)['timed_out']
 
 
 
 def test_fast_translation_cost_gate_never_constructs_backend(monkeypatch):
-    import tokopt.strategies.translate as module
+    import promptsieve.strategies.translate as module
     monkeypatch.setattr(module,'get_translator',lambda backend: (_ for _ in ()).throw(AssertionError('translator loaded')))
     result=optimize('short text',counter=HeuristicCounter(),langs=['zh'],mode='fast',cache=False)
     assert result.best.text=='short text'
@@ -172,7 +172,7 @@ def test_unit_association_and_negation_scope_are_not_just_multisets():
 
 
 def test_backend_runtime_error_returns_original_without_leaking(monkeypatch):
-    import tokopt.optimizer as module
+    import promptsieve.optimizer as module
     monkeypatch.setattr(module,'normalize',lambda text: (_ for _ in ()).throw(RuntimeError('PRIVATE_DETAILS')))
     result=optimize('recover this',counter=HeuristicCounter(),cache=False)
     assert result.best.text==result.original_text=='recover this'
@@ -197,7 +197,7 @@ def test_legacy_positional_source_language_is_unchanged():
 
 @pytest.mark.parametrize('fact',['Memory limit is 2048 MiB.','The temperature is 12 °C.','Compute 6 + 2 * 9.','Compute 2 ** 6.'])
 def test_sensitive_context_skips_model_even_when_facts_would_survive(monkeypatch,fact):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor,'available',lambda: (_ for _ in ()).throw(AssertionError('model loaded')))
     prompt=('The meeting covered routine planning for the coming season. '*8)+'\n\n'+fact
     result=optimize(prompt,counter=HeuristicCounter(),strategies=['lingua'],mode='full',cache=False)

@@ -1,7 +1,7 @@
 """Local, free translation backends for the multilingual experiment.
 
 * ``argos`` - Argos Translate (OpenNMT models, ~100 MB per language pair,
-  CPU-friendly). Run ``tokopt setup-languages fa zh ja`` once.
+  CPU-friendly). Run ``prompt-sieve setup-languages fa zh ja`` once.
 * ``nllb``  - Meta NLLB-200 distilled 600M via transformers (better quality,
   ~2.4 GB download, slow on CPU).
 
@@ -30,7 +30,7 @@ class ArgosTranslator:
         try:
             import argostranslate.translate as at
         except ImportError as e:
-            raise RuntimeError("pip install 'tokopt[argos]'") from e
+            raise RuntimeError("pip install 'prompt-sieve[argos]'") from e
         self._at = at
 
     def translate(self, text: str, src: str, tgt: str) -> str:
@@ -77,7 +77,7 @@ class NLLBTranslator:
         try:
             from transformers import pipeline  # noqa: F401
         except ImportError as e:
-            raise RuntimeError("pip install 'tokopt[nllb]'") from e
+            raise RuntimeError("pip install 'prompt-sieve[nllb]'") from e
         self._model, self._device = model, device
         self._pipe = None
 

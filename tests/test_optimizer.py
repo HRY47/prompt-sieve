@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from tokopt.optimizer import optimize
+from promptsieve.optimizer import optimize
 
 LOG = (Path(__file__).parent.parent / "examples" / "pytest_run.log").read_text()
 

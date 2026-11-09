@@ -39,7 +39,7 @@ class LinguaCompressor:
             import llmlingua  # noqa: F401
             return True, ""
         except ImportError:
-            return False, "pip install 'tokopt[lingua]'  (installs llmlingua + torch)"
+            return False, "pip install 'prompt-sieve[lingua]'  (installs llmlingua + torch)"
 
     def _get(self):
         device = self.device

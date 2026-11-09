@@ -3,9 +3,9 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tokopt"
+name = "prompt-sieve"
 version = "0.1.0"
-description = "PromptSieve (tokopt): experimental token-aware prompt and log compression with preservation checks."
+description = "PromptSieve: experimental token-aware prompt and log compression with preservation checks."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -36,7 +36,7 @@ dev = ["pytest>=7"]
 Repository = "https://github.com/HRY47/prompt-sieve"
 
 [project.scripts]
-tokopt = "tokopt.cli:main"
+prompt-sieve = "promptsieve.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

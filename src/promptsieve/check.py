@@ -9,7 +9,7 @@ Two complementary checks:
   translation (EN -> X -> EN) against the original. Language-independent and
   dependency-free.
 
-Neither proves meaning is preserved. ``tokopt bench`` (task accuracy) is the
+Neither proves meaning is preserved. ``prompt-sieve bench`` (task accuracy) is the
 real test; these are cheap filters that catch the obvious breakage.
 """
 from __future__ import annotations

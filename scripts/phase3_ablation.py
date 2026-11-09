@@ -3,9 +3,9 @@ import difflib,json,time
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer,AutoModelForCausalLM
-from tokopt import optimize
-from tokopt.counters import get_counter
-from tokopt.strategies.normalize import normalize
+from promptsieve import optimize
+from promptsieve.counters import get_counter
+from promptsieve.strategies.normalize import normalize
 
 
 def main():

@@ -129,7 +129,7 @@ class LogCompressor:
             if st.lines_omitted:
                 notes.append(f"{st.lines_omitted} other lines far from any error")
             if notes:
-                out += "\n[tokopt removed: " + ", ".join(notes) + "]"
+                out += "\n[PromptSieve removed: " + ", ".join(notes) + "]"
         return out + "\n"
 
     @staticmethod

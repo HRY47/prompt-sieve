@@ -6,10 +6,10 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from tokopt.bench import CommandRunner, OllamaRunner, OpenAIRunner, AnthropicRunner, results_jsonl, CaseResult, run_bench, summarize
-from tokopt.counters import AnthropicCounter, CounterUnavailable, HFCounter
-from tokopt.optimizer import optimize
-from tokopt.strategies.translate import NLLBTranslator
+from promptsieve.bench import CommandRunner, OllamaRunner, OpenAIRunner, AnthropicRunner, results_jsonl, CaseResult, run_bench, summarize
+from promptsieve.counters import AnthropicCounter, CounterUnavailable, HFCounter
+from promptsieve.optimizer import optimize
+from promptsieve.strategies.translate import NLLBTranslator
 
 
 @pytest.mark.parametrize("backend", ["openai", "anthropic"])
@@ -100,7 +100,7 @@ def test_configured_token_limit_cannot_silently_overflow(counter):
 
 
 def test_critical_identifier_is_not_substring():
-    from tokopt.check import preservation
+    from promptsieve.check import preservation
     assert not preservation("use user_id", "use other_user_id").ok
 
 
@@ -112,7 +112,7 @@ def test_wrapper_counted_before_translation_acceptance(counter, translator):
 
 
 def test_lingua_backend_failure_is_rejected(monkeypatch, counter):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor, "available", staticmethod(lambda: (True, "")))
     def fail(self, text): raise OSError("PRIVATE_SENTINEL")
     monkeypatch.setattr(LinguaCompressor, "apply", fail)
@@ -122,7 +122,7 @@ def test_lingua_backend_failure_is_rejected(monkeypatch, counter):
 
 
 def test_lingua_protects_code_and_detects_changed_instructions(monkeypatch, counter):
-    from tokopt.strategies.lingua import LinguaCompressor
+    from promptsieve.strategies.lingua import LinguaCompressor
     monkeypatch.setattr(LinguaCompressor, "available", staticmethod(lambda: (True, "")))
     monkeypatch.setattr(LinguaCompressor, "compress_one", lambda self, text: text.replace("not ", ""))
     text = "The deployment must not delete data. " * 15 + "\n\n```sh\necho safe\n```"
@@ -135,7 +135,7 @@ def test_lingua_protects_code_and_detects_changed_instructions(monkeypatch, coun
 def test_invalid_utf8_cli_is_rejected(tmp_path):
     p = tmp_path / "invalid.txt"
     p.write_bytes(b"private\xffcontent")
-    result = subprocess.run([sys.executable, "-m", "tokopt", "compress", str(p), "-c", "heuristic"], capture_output=True)
+    result = subprocess.run([sys.executable, "-m", "promptsieve", "compress", str(p), "-c", "heuristic"], capture_output=True)
     assert result.returncode != 0
     assert b"private" not in result.stderr and not result.stdout
 
