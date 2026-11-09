@@ -21,3 +21,56 @@ benchmark-results/
 .vscode/
 Thumbs.db
 .DS_Store
+
+# Local credential stores and authentication configuration
+.aws/
+.ssh/
+.kube/
+.git-credentials
+.netrc
+.pypirc
+.npmrc.local
+credentials.json
+credentials.*.json
+secrets.json
+secrets.*.json
+secrets.env
+*.secrets.env
+.envrc
+
+# Private keys, signing containers, and keystores
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.kdbx
+
+# Local/private data and model downloads (public fixtures stay visible)
+private-data/
+private-datasets/
+data/private/
+datasets/private/
+models/
+model-cache/
+model_cache/
+.cache/
+.huggingface/
+.hf/
+.torch/
+*.safetensors
+*.gguf
+*.ckpt
+
+# Additional local environments and generated reports
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+*.log.tmp
+/junit*.xml
+/coverage.xml

@@ -47,3 +47,46 @@ adapter objects or serialized cache contents from untrusted inputs. WSL deadline
 cleanup was measured; other platforms and detached custom subprocesses require
 separate verification. The CLI preserves its source file; output paths are still
 trusted local configuration rather than a filesystem security boundary.
+
+CLI diagnostic policy:
+
+- Dependency and backend failures show a fixed operation label and exception
+  class, with actionable configuration hints. Raw exception messages, chained
+  exceptions, traceback bodies, counter specifications and private file paths
+  are withheld. Normal CLI errors do not save tracebacks or diagnostic files.
+- Argument-parser failures do not echo rejected arguments or values; use the
+  displayed command's `--help` to check valid options. Case validation identifies
+  the JSONL line number rather than copying caller-supplied case IDs or paths.
+- Command and counter/doctor initialization warnings are captured and replaced with static
+  notices. The fallback to a rough heuristic counter remains visible.
+- This policy covers PromptSieve's diagnostics. Optimized stdout, explicit text
+  or answer exports, successful metadata, and independent third-party logging
+  can contain input data. Review those outputs before sharing; the CLI does not
+  make arbitrary text or third-party code safe to publish.
+
+Local files and release inputs:
+
+- Ignore rules cover local credential stores, private-key containers, targeted
+  private-data directories, model-download directories, weights and generated
+  caches. Public examples and historical benchmark fixtures remain visible.
+  Keep tokens out of deliberately shared configuration, including `.npmrc` and
+  `.env.example`. Git ignore rules do not protect already-tracked files or
+  intentional forced additions, and they do not filter packaging manifests.
+- Inspect and secret-scan the built wheel and source archive as well as current
+  tracked files and all reachable Git history before each release. Do not add
+  real credentials to tests; use clearly synthetic sentinels. Retain historical
+  evidence and scope any scanner exceptions to individually verified checksums.
+- CI actions are pinned to verified full commit SHAs of the existing
+  major versions, with persisted checkout credentials disabled. Dependabot
+  proposes Actions and Python dependency updates for review; it does not merge
+  or publish releases. Review updates and test them before merging.
+- Library dependency ranges remain compatible rather than frozen to one local
+  ML environment. For reproducible release validation, retain tested resolver
+  versions/constraints and hashes per Python/platform, and record immutable
+  model revisions. Neither a version range nor a successful import is evidence
+  that an upstream package/model is secure.
+- Build releases from an explicitly reviewed commit and verify their source
+  provenance. Security corrections to an existing public release should get a
+  new patch version; do not silently move the existing public tag. Historical
+  author metadata and machine paths require a separate owner-approved privacy
+  decision; ordinary ignore changes do not erase public history.

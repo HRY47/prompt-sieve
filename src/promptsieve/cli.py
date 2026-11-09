@@ -18,8 +18,16 @@ import sys
 import warnings
 
 from . import __version__
-from .counters import CounterUnavailable, get_counter
-from .errors import UsageError
+from .counters import CounterUnavailable, HeuristicCounter, get_counter
+from .errors import UsageError, exception_summary
+
+
+class _ArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        # argparse embeds invalid values, paths and unknown arguments in message.
+        self.print_usage(sys.stderr)
+        self.exit(2, f"{self.prog}: error: invalid command-line arguments; "
+                     f"run '{self.prog} --help' for valid options and values\n")
 
 
 def _read(path: str) -> str:
@@ -34,11 +42,17 @@ def _counter(spec):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
             c = get_counter(spec)
-        for x in w:
-            print(f"warning: {x.message}", file=sys.stderr)
+        if w:
+            if spec is None and isinstance(c, HeuristicCounter):
+                print("warning: default tokenizer unavailable; falling back to the rough "
+                      "heuristic counter; run 'prompt-sieve doctor' for dependency checks", file=sys.stderr)
+            else:
+                print("warning: counter initialization emitted warnings; details withheld; "
+                      "run 'prompt-sieve doctor' for dependency checks", file=sys.stderr)
         return c
     except CounterUnavailable as e:
-        sys.exit(f"error: counter {spec!r} unavailable: {e}")
+        sys.exit(exception_summary("error: counter unavailable", e) +
+                 "; check the counter specification, optional dependencies and provider environment")
 
 
 def _opt_kwargs(a) -> dict:
@@ -170,8 +184,11 @@ def cmd_bench(a):
             raise UsageError("bench requires an explicit --counter for command and Ollama runners")
     try:
         runner = get_runner(a.runner)
+    except UsageError:
+        raise
     except Exception as e:
-        sys.exit(f"error: runner unavailable: {e}")
+        sys.exit(exception_summary("error: runner unavailable", e) +
+                 "; check the runner type, optional dependencies and provider environment")
     kw = _opt_kwargs(a)
     kw["strategies"] = a.strategy or ["auto"]
     results = run_bench(cases, runner, kw, progress=lambda s: print(s, file=sys.stderr))
@@ -202,14 +219,19 @@ def cmd_doctor(a):
     }
     for name, fn in checks.items():
         try:
-            fn()
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always")
+                fn()
             print(f"  available {name}")
+            if caught:
+                print("    initialization warnings withheld; check optional dependency versions")
         except Exception as e:
-            print(f"  missing  {name}: {str(e).splitlines()[0][:100]}")
+            print("  " + exception_summary(f"missing {name}", e) +
+                  "; check optional dependencies, cached data and provider environment")
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="prompt-sieve", description="PromptSieve: token-aware prompt optimizer")
+    p = _ArgumentParser(prog="prompt-sieve", description="PromptSieve: token-aware prompt optimizer")
     p.add_argument("--version", action="version", version=f"PromptSieve {__version__}")
     sub = p.add_subparsers(dest="cmd", required=True)
 
@@ -258,13 +280,19 @@ def main(argv=None):
 
     a = p.parse_args(argv)
     try:
-        a.fn(a)
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            a.fn(a)
+        if caught:
+            print("warning: command emitted warnings; details withheld; "
+                  "check optional dependency versions", file=sys.stderr)
     except UsageError as e:
         p.exit(2, f"error: {e}\n")
-    except (ValueError, OSError, RuntimeError) as e:
-        # Backend exceptions may embed prompts, commands, credentials or HTTP
-        # bodies. Reports deliberately retain only the exception type.
-        p.exit(2, f"error: {type(e).__name__}; check input files, configuration and backend availability\n")
+    except Exception as e:
+        # SDK and import errors also reach this boundary. Never format their
+        # messages, attributes, chained exceptions or tracebacks into output.
+        p.exit(2, exception_summary("error: command failed", e) +
+               "; check input files, configuration and backend availability\n")
 
 
 if __name__ == "__main__":

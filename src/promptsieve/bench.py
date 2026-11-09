@@ -155,7 +155,7 @@ def get_runner(spec: str) -> Runner:
         return OllamaRunner(arg or "llama3.1")
     if kind == "cmd":
         return CommandRunner(arg)
-    raise UsageError(f"unknown runner type {kind!r} (use anthropic, openai, ollama or cmd)")
+    raise UsageError("unknown runner type (use anthropic, openai, ollama or cmd)")
 
 
 def _norm(s: str) -> str:
@@ -163,6 +163,8 @@ def _norm(s: str) -> str:
 
 
 def score(answer: str, expected: Optional[str], match: str, reference_answer: str = "") -> bool:
+    if match not in ("contains", "exact", "regex", "same_as_original"):
+        raise UsageError("unknown match mode (use contains, exact, regex or same_as_original)")
     if match != "same_as_original" and (not isinstance(expected, str) or not expected.strip()):
         raise UsageError(f"{match} requires a nonempty expected answer")
     if match == "exact":
@@ -174,7 +176,6 @@ def score(answer: str, expected: Optional[str], match: str, reference_answer: st
     if match == "same_as_original":
         a, b = _norm(answer), _norm(reference_answer)
         return a == b or chrf(a, b) >= 70
-    raise UsageError(f"unknown match mode {match!r}")
 
 
 @dataclass
@@ -213,16 +214,16 @@ def load_cases(path: str, allow_external_files: bool = False) -> List[dict]:
         c.setdefault("id", f"case-{i + 1}")
         if "prompt_file" in c:
             if not isinstance(c["prompt_file"], str):
-                raise UsageError(f"{c['id']}: prompt_file must be a string")
+                raise UsageError(f"line {i + 1}: prompt_file must be a string")
             target = (base / c["prompt_file"]).resolve()
             if not allow_external_files and not target.is_relative_to(base):
-                raise UsageError(f"{c['id']}: prompt_file resolves outside the cases directory; "
+                raise UsageError(f"line {i + 1}: prompt_file resolves outside the cases directory; "
                                  "pass --allow-external-prompt-files if you trust this case file")
             c["prompt"] = target.read_text(encoding="utf-8")
         if "prompt" not in c:
-            raise UsageError(f"{c['id']}: needs prompt or prompt_file")
+            raise UsageError(f"line {i + 1}: needs prompt or prompt_file")
         if not isinstance(c["prompt"], str) or not isinstance(c.get("question", ""), str):
-            raise UsageError(f"{c['id']}: prompt and question must be strings")
+            raise UsageError(f"line {i + 1}: prompt and question must be strings")
         c.setdefault("match", "contains" if "expected" in c else "same_as_original")
         # Validate all scoring rules before sending any prompts to a backend.
         score("", c.get("expected"), c["match"])

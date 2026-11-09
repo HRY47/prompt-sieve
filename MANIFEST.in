@@ -4,3 +4,4 @@ recursive-include examples *.md *.jsonl *.log
 recursive-include tests *.py
 recursive-include scripts *.py
 include review/REVIEW.md review/PHASE3.md review/FINAL-REVIEW.md
+include .gitignore SECURITY.md
