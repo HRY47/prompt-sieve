@@ -20,6 +20,7 @@ from dataclasses import asdict, dataclass, field
 from typing import Dict, Iterable, List, Optional, Sequence
 
 from .check import chrf, preservation
+from .errors import UsageError
 from .counters import TokenCounter, get_counter
 from .protect import Segment, join_segments, mask, split_segments, unmask
 from .strategies.logs import LogCompressor, looks_like_log
@@ -135,15 +136,15 @@ def _optimize(
                                   ("min_chrf", min_chrf, 0, 100),
                                   ("lingua_rate", lingua_rate, 0, 1)):
         if not math.isfinite(value) or not low <= value <= high or (key == "lingua_rate" and value == 0):
-            raise ValueError(f"{key} must be finite and within {low}..{high}")
+            raise UsageError(f"{key} must be finite and within {low}..{high}")
     if max_tokens is not None and (not isinstance(max_tokens, int) or max_tokens < 0):
-        raise ValueError("max_tokens must be a nonnegative integer")
+        raise UsageError("max_tokens must be a nonnegative integer")
     langs = list(langs)
     for strategy in strategies:
         if strategy.startswith("translate:") and strategy.partition(":")[2]:
             langs.append(strategy.partition(":")[2])
         elif strategy not in {"auto", "logs", "normalize", "lingua"}:
-            raise ValueError(f"unknown strategy: {strategy!r}")
+            raise UsageError(f"unknown strategy: {strategy!r}")
     counter = counter or get_counter()
     orig_tokens = counter.count(text)
     if _progress:
@@ -165,9 +166,12 @@ def _optimize(
     base = normalize(text)
     n = counter.count(base)
     normalized = gate(Candidate("normalize", base, n, saved(n), False, n <= orig_tokens))
-    if mode != "full" and "normalize" not in strategies and 0 < normalized.savings < min_savings:
+    # Whitespace-only edits can flip answers (Phase 3: one removed space turned
+    # Qwen's 42 into 10). Small cosmetic savings are declined in every mode
+    # unless normalization was explicitly requested.
+    if "normalize" not in strategies and 0 < normalized.savings < min_savings:
         normalized.passed = False
-        normalized.reasons.append("cosmetic savings below fast-mode threshold")
+        normalized.reasons.append("cosmetic savings below the minimum; original kept")
     cands.append(normalized)
 
     wanted = list(strategies)
@@ -232,7 +236,7 @@ def _optimize(
                     c.reasons.append("mixed-language prose pruning requires allow_mixed_lingua=True")
                 cands.append(gate(c))
             except Exception as e:
-                cands.append(Candidate(lc2.name, base, n, saved(n), True, False,
+                cands.append(Candidate(lc2.name, base, orig_tokens, 0.0, True, False,
                                        [f"compression failed ({type(e).__name__})"]))
 
     # -- translation -----------------------------------------------------------
@@ -258,7 +262,7 @@ def _optimize(
                 c.reasons.append(f"exceeds max_tokens={max_tokens}")
     passed = [c for c in cands if c.passed and c.tokens <= orig_tokens]
     if not passed:
-        raise ValueError("no acceptable candidate fits max_tokens")
+        raise UsageError("no acceptable candidate fits max_tokens")
     # fewest tokens wins; on ties prefer non-lossy, then the earlier candidate
     best = min(passed, key=lambda c: (c.tokens, c.lossy, cands.index(c)))
     result = OptimizeResult(counter.name, orig_tokens, cands, best)

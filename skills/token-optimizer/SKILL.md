@@ -56,7 +56,7 @@ unless the user authorized their cost. CLI reports omit raw answers by default;
 Long natural-language prompts (needs `pip install 'tokopt[lingua]'`):
 
 ```bash
-tokopt compress prompt.md -s lingua --rate 0.5
+tokopt compress prompt.md -s lingua --mode full --rate 0.5
 ```
 
 ## Research / experiments (only when the user asks)

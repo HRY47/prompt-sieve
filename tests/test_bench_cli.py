@@ -22,7 +22,8 @@ def test_bench_with_command_runner(tmp_path, counter):
     model = tmp_path / "model.py"
     model.write_text("import sys,re\nm=re.search(r'::(\\w+) FAILED', sys.stdin.read())\nprint(m.group(1) if m else 'none')\n")
     cases = tmp_path / "cases.jsonl"
-    cases.write_text(json.dumps({"id": "log1", "prompt_file": str(ROOT / "examples" / "pytest_run.log"),
+    (tmp_path / "pytest_run.log").write_text((ROOT / "examples" / "pytest_run.log").read_text(encoding="utf-8"), encoding="utf-8")
+    cases.write_text(json.dumps({"id": "log1", "prompt_file": "pytest_run.log",
                                  "question": "Which test failed?", "expected": "test_checkout_total"}) + "\n")
     results = run_bench(load_cases(str(cases)), CommandRunner(f"{PY} {model}"), {"counter": counter})
     s = summarize(results)

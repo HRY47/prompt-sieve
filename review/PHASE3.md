@@ -1,3 +1,8 @@
+> **Note (final independent review):** the fast-mode "41.6% savings" and "no paired
+> regressions" results below come from 10 log fixtures; the other 110 prompts were unchanged,
+> and all 10 compressed cases were already wrong at baseline, so a regression was impossible.
+> See [FINAL-REVIEW.md](FINAL-REVIEW.md) for the corrected interpretation and later fixes.
+
 # Phase 3: reliability and resource review
 
 Date: 2026-11-08. This is the current assessment; Phase 2 and Phase 1 are

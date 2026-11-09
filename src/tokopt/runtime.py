@@ -12,6 +12,7 @@ import threading
 import uuid
 import time
 from collections import OrderedDict
+from .errors import UsageError
 
 
 class OptimizationCache:
@@ -182,25 +183,25 @@ def optimize(text, *args, mode=None, timeout_seconds=None, cache=True,
     options['langs'] = list(options['langs']); options['strategies'] = list(options['strategies'])
     if mode is None:
         mode = 'full' if options['langs'] or any(s=='lingua' or s.startswith('translate:') for s in options['strategies']) else 'fast'
-    if mode not in ('fast','balanced','full'): raise ValueError('mode must be fast, balanced or full')
+    if mode not in ('fast','balanced','full'): raise UsageError('mode must be fast, balanced or full')
     for value in (ml_min_tokens, ml_min_saved_tokens):
-        if not isinstance(value,int) or value < 0: raise ValueError('ML token thresholds must be nonnegative integers')
+        if not isinstance(value,int) or value < 0: raise UsageError('ML token thresholds must be nonnegative integers')
     if timeout_seconds is not None and (not math.isfinite(timeout_seconds) or timeout_seconds <= 0):
-        raise ValueError('timeout_seconds must be finite and positive')
-    if not isinstance(cache_namespace,str) or len(cache_namespace)>256: raise ValueError('cache_namespace must be a string of at most 256 characters')
-    if options['translation_backend'] not in ('argos','nllb'): raise ValueError('translation_backend')
+        raise UsageError('timeout_seconds must be finite and positive')
+    if not isinstance(cache_namespace,str) or len(cache_namespace)>256: raise UsageError('cache_namespace must be a string of at most 256 characters')
+    if options['translation_backend'] not in ('argos','nllb'): raise UsageError('translation_backend must be argos or nllb')
     if cache is not True and cache is not False and not isinstance(cache,OptimizationCache):
-        raise ValueError('cache must be bool or OptimizationCache')
+        raise UsageError('cache must be bool or OptimizationCache')
     options.update(mode=mode,ml_min_tokens=ml_min_tokens,ml_min_saved_tokens=ml_min_saved_tokens)
     # Validate user configuration before creating a worker, loading a tokenizer,
     # or looking in the result cache. Errors are not hidden as safe fallbacks.
     for key,low,high in (('min_savings',0,1),('min_preservation',0,1),('min_chrf',0,100),('lingua_rate',0,1)):
         v=options[key]
-        if not math.isfinite(v) or not low<=v<=high or (key=='lingua_rate' and v==0): raise ValueError(key)
+        if not math.isfinite(v) or not low<=v<=high or (key=='lingua_rate' and v==0): raise UsageError(f'{key} is out of range')
     limit=options['max_tokens']
-    if limit is not None and (not isinstance(limit,int) or limit<0): raise ValueError('max_tokens')
+    if limit is not None and (not isinstance(limit,int) or limit<0): raise UsageError('max_tokens must be a nonnegative integer')
     for strategy in options['strategies']:
-        if strategy not in ('auto','logs','normalize','lingua') and not (strategy.startswith('translate:') and strategy.partition(':')[2]): raise ValueError('unknown strategy')
+        if strategy not in ('auto','logs','normalize','lingua') and not (strategy.startswith('translate:') and strategy.partition(':')[2]): raise UsageError('unknown strategy')
     # With a deadline, even default tokenizer construction belongs in the child.
     if options['counter'] is None and timeout_seconds is None: options['counter']=get_counter()
     store=(DEFAULT_CACHE if cache is True else cache if isinstance(cache,OptimizationCache) else None) if timeout_seconds is None else None

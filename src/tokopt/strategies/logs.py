@@ -58,6 +58,19 @@ TIMESTAMP = re.compile(
     r"^\[?\d{4}-\d\d-\d\d[T ]\d\d:\d\d:\d\d(?:[.,]\d+)?(?:Z|[+-]\d\d:?\d\d)?\]?\s*"
 )
 JAVA_FRAME = re.compile(r"^\s+at\s+[\w$.<>]+\(.*\)\s*$")
+# Lines that were evidently produced by a program. Text before the first such
+# line and after the last one (a user's instructions or question around a pasted
+# log) is kept verbatim: only the log body is compressed.
+LOG_LINE = re.compile(
+    r"^\s*\[?(?:TRACE|DEBUG|INFO|NOTICE|WARN|WARNING|ERROR|ERR|FATAL|CRITICAL|SEVERE)\b"
+    r"|^\s*\[?(?:trace|debug|info|notice|warn|warning|error|fatal|critical)[\]:]"
+    r"|^\s*\d{1,2}:\d\d:\d\d|^\[\s*\d+(?:[./]\d+)?\s*[%\]]"
+    r"|^\S+::\S+|^(?:PASSED|FAILED|ERROR|XFAIL|XPASS|SKIPPED)\s|^E\s{2,}|^>\s"
+    r"|^\s*File \".*\", line \d+|^Traceback \(most recent call last\)|^\s*Caused by:"
+    r"|^[=_\-*#~]{5,}|^\S+\.[A-Za-z]\w*:\d+(?::\d+)?:|^(?:error|warning|note)(?:\[\w+\])?:"
+    r"|^npm (?:ERR!|WARN)|^\s*at\s"
+    r"|^[A-Za-z_][\w.$]*(?:Error|Exception|Warning|Exit|Interrupt|Failure)\b(?::|$)"
+)
 
 
 @dataclass
@@ -97,7 +110,7 @@ class LogCompressor:
     # -- public -----------------------------------------------------------
     def apply(self, text: str) -> str:
         st = self.last_stats = LogStats()
-        lines = normalize(text).split("\n")
+        preamble, lines, epilogue = _split_surrounding_text(normalize(text).split("\n"))
         if self.strip_timestamps:
             lines = [TIMESTAMP.sub("", l) for l in lines]
 
@@ -106,7 +119,7 @@ class LogCompressor:
         lines = self._dedupe(lines, st)
         lines = self._focus(lines, st)
 
-        out = "\n".join(lines).strip("\n")
+        out = "\n".join(preamble + lines + epilogue).strip("\n")
         if self.footer:
             notes = [f"{n} {k} lines" for k, n in st.dropped.most_common()]
             if st.duplicates_collapsed:
@@ -121,12 +134,16 @@ class LogCompressor:
 
     @staticmethod
     def verify(original: str, compressed: str) -> List[str]:
-        """Return important lines from the original that are missing."""
+        """Return important lines, and non-log text surrounding the log, that
+        are missing from the compressed output."""
         comp = Counter(l.strip() for l in normalize(compressed).split("\n"))
         missing = []
-        for line in normalize(original).split("\n"):
+        lines = normalize(original).split("\n")
+        preamble, _, epilogue = _split_surrounding_text(lines)
+        surrounding = {id(l) for l in preamble + epilogue}
+        for line in lines:
             s = line.strip()
-            if s and (IMPORTANT.search(s) or SUMMARY.search(s)):
+            if s and (id(line) in surrounding or IMPORTANT.search(s) or SUMMARY.search(s)):
                 key = s if comp[s] else TIMESTAMP.sub("", s)
                 if not comp[key]:
                     missing.append(s)
@@ -187,6 +204,10 @@ class LogCompressor:
         return out
 
     def _focus(self, lines: List[str], st: LogStats) -> List[str]:
+        # With no recognized diagnostic or summary there is nothing to focus
+        # on; keeping only the head and tail would discard the log blindly.
+        if not any(IMPORTANT.search(l) or SUMMARY.search(l) for l in lines):
+            return lines
         # Failed pytest sections can contain arbitrary captured output and
         # assertion diffs. Keep those sections in full, even beyond max_lines.
         if any(re.search(r"^=+\s+(?:FAILURES|ERRORS)\s+=+|^-+ Captured ", l) for l in lines):
@@ -225,6 +246,19 @@ class LogCompressor:
             out.append(f"... [{gap} lines omitted]")
             st.lines_omitted += gap
         return out
+
+
+def _is_log_line(line: str) -> bool:
+    return bool(TIMESTAMP.match(line) or LOG_LINE.search(line) or JAVA_FRAME.match(line)
+                or SUMMARY.search(line) or _noise_category(line))
+
+
+def _split_surrounding_text(lines: List[str]):
+    """Split into (text before the log, log body, text after the log)."""
+    idx = [i for i, l in enumerate(lines) if l.strip() and _is_log_line(l)]
+    if not idx:
+        return lines, [], []
+    return lines[:idx[0]], lines[idx[0]:idx[-1] + 1], lines[idx[-1] + 1:]
 
 
 def _noise_category(line: str):

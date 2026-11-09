@@ -8,9 +8,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {os: ubuntu-latest, python: '3.9'}
-          - {os: ubuntu-latest, python: '3.11'}
-          - {os: ubuntu-latest, python: '3.13'}
+          # ubuntu-latest moved to 26.04, which has no setup-python builds for
+          # older interpreters. Pin the image so the matrix stays reproducible.
+          - {os: ubuntu-24.04, python: '3.10'}
+          - {os: ubuntu-24.04, python: '3.12'}
+          - {os: ubuntu-24.04, python: '3.13'}
           - {os: windows-latest, python: '3.13'}
     runs-on: ${{ matrix.os }}
     env:
@@ -20,18 +22,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m pip install -e '.[dev]'
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
       - run: python -m pytest -v
       - run: tokopt doctor
       - run: python -m pip wheel . --no-deps --wheel-dir dist
   tokenizer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       TOKOPT_TEST_TOKENIZERS: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: python -m pip install -e '.[openai,dev]'
+          python-version: '3.12'
+      - run: python -m pip install -e ".[openai,dev]"
       - run: python -m pytest tests/test_integrations.py -v -k tiktoken

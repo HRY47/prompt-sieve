@@ -19,6 +19,7 @@ import warnings
 
 from . import __version__
 from .counters import CounterUnavailable, get_counter
+from .errors import UsageError
 
 
 def _read(path: str) -> str:
@@ -113,7 +114,7 @@ def cmd_compress(a):
         from pathlib import Path
         source, dest = Path(a.file), Path(a.output)
         if source.resolve() == dest.resolve() or (dest.exists() and source.samefile(dest)):
-            raise ValueError("output must differ from input; retain the original prompt")
+            raise UsageError("output must differ from input; keep the original prompt")
     text = _read(a.file)
     kw = _opt_kwargs(a)
     res = optimize(text, strategies=a.strategy or ["auto"], **kw)
@@ -130,7 +131,7 @@ def cmd_compress(a):
               f"({res.best.savings:+.1%})", file=sys.stderr)
 
     if not res.best.passed:
-        raise ValueError("original fallback is not verified within max_tokens")
+        raise UsageError("original fallback is not verified within --max-tokens; do not send it without checking")
 
 
 def cmd_experiment(a):
@@ -158,7 +159,7 @@ def cmd_experiment(a):
 def cmd_bench(a):
     from .bench import get_runner, load_cases, results_jsonl, run_bench, summarize
 
-    cases = load_cases(a.cases)
+    cases = load_cases(a.cases, allow_external_files=a.allow_external_prompt_files)
     if a.counter is None:
         kind, _, model = a.runner.partition(":")
         if kind == "openai":
@@ -166,7 +167,7 @@ def cmd_bench(a):
         elif kind == "anthropic":
             a.counter = f"anthropic:{model or 'claude-haiku-5-5'}"
         else:
-            raise ValueError("bench requires an explicit --counter for command and Ollama runners")
+            raise UsageError("bench requires an explicit --counter for command and Ollama runners")
     try:
         runner = get_runner(a.runner)
     except Exception as e:
@@ -241,6 +242,8 @@ def main(argv=None):
                    help="anthropic:MODEL | openai:MODEL | ollama:MODEL | 'cmd:SHELL COMMAND'")
     s.add_argument("-o", "--output", help="write per-case results (JSONL)")
     s.add_argument("--include-answers", action="store_true", help="include raw answers in report (may contain sensitive input)")
+    s.add_argument("--allow-external-prompt-files", action="store_true",
+                   help="let prompt_file entries point outside the cases directory (only for trusted case files)")
     _add_common(s)
     _add_translation(s)
     s.set_defaults(fn=cmd_bench)
@@ -256,6 +259,8 @@ def main(argv=None):
     a = p.parse_args(argv)
     try:
         a.fn(a)
+    except UsageError as e:
+        p.exit(2, f"error: {e}\n")
     except (ValueError, OSError, RuntimeError) as e:
         # Backend exceptions may embed prompts, commands, credentials or HTTP
         # bodies. Reports deliberately retain only the exception type.

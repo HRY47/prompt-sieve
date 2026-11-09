@@ -1,3 +1,8 @@
+> **Note (final independent review):** the fast-mode "41.6% savings" and "no paired
+> regressions" results below come from 10 log fixtures; the other 110 prompts were unchanged,
+> and all 10 compressed cases were already wrong at baseline, so a regression was impossible.
+> See [FINAL-REVIEW.md](FINAL-REVIEW.md) for the corrected interpretation and later fixes.
+
 # Current review: Phase 3
 
 **Conditionally ready for an explicitly experimental alpha with fast mode as the
@@ -50,7 +55,7 @@ VRAM-saving guarantees. Nothing was published and no Git repository was created.
 ## Environment and automated evidence
 
 Verified Linux kernel `6.18.54.1-microsoft-standard-WSL2`, Python 3.12.3, and
-`/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python`. The installed editable
+`<project>/.venv/bin/python`. The installed editable
 project points to this workspace. No Git metadata exists. Approximately 15 GiB
 RAM is available to WSL; `torch.cuda.is_available()` is false. CPU runs use two
 OpenMP/MKL/PyTorch threads. No paid API, Anthropic counter, or remote inference

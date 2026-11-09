@@ -3,4 +3,4 @@ recursive-include skills *.md
 recursive-include examples *.md *.jsonl *.log
 recursive-include tests *.py
 recursive-include scripts *.py
-recursive-include review *.md *.json *.jsonl
+include review/REVIEW.md review/PHASE3.md review/FINAL-REVIEW.md

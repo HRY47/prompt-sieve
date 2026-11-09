@@ -36,6 +36,7 @@ from pathlib import Path
 from typing import Callable, List, Optional, Protocol
 
 from .check import chrf
+from .errors import UsageError
 from .counters import get_counter
 from .optimizer import optimize
 
@@ -75,7 +76,7 @@ class OpenAIRunner:
 class OllamaRunner:
     def __init__(self, model: str):
         self.model = model
-        self.host = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+        self.host = _ollama_base_url(os.environ.get("OLLAMA_HOST", ""))
         self.name = f"ollama:{model}"
 
     def run(self, prompt: str) -> str:
@@ -88,6 +89,20 @@ class OllamaRunner:
         if not isinstance(result, dict) or not isinstance(result.get("response"), str) or result.get("error"):
             raise ValueError("malformed Ollama response")
         return result["response"]
+
+
+def _ollama_base_url(value: str) -> str:
+    """Accept Ollama's own OLLAMA_HOST forms (``host``, ``host:port``, URL)."""
+    from urllib.parse import urlsplit
+
+    value = value.strip().rstrip("/") or "http://localhost:11434"
+    if "://" not in value:
+        value = "http://" + value
+        if urlsplit(value).port is None:
+            value += ":11434"  # Ollama's default port applies to bare hosts
+    if urlsplit(value).scheme.lower() not in ("http", "https"):
+        raise UsageError("OLLAMA_HOST must be an http(s) address")
+    return value
 
 
 class CommandRunner:
@@ -140,7 +155,7 @@ def get_runner(spec: str) -> Runner:
         return OllamaRunner(arg or "llama3.1")
     if kind == "cmd":
         return CommandRunner(arg)
-    raise ValueError(f"unknown runner {spec!r}")
+    raise UsageError(f"unknown runner type {kind!r} (use anthropic, openai, ollama or cmd)")
 
 
 def _norm(s: str) -> str:
@@ -149,7 +164,7 @@ def _norm(s: str) -> str:
 
 def score(answer: str, expected: Optional[str], match: str, reference_answer: str = "") -> bool:
     if match != "same_as_original" and (not isinstance(expected, str) or not expected.strip()):
-        raise ValueError(f"{match} requires a nonempty expected answer")
+        raise UsageError(f"{match} requires a nonempty expected answer")
     if match == "exact":
         return _norm(answer) == _norm(expected or "")
     if match == "contains":
@@ -159,7 +174,7 @@ def score(answer: str, expected: Optional[str], match: str, reference_answer: st
     if match == "same_as_original":
         a, b = _norm(answer), _norm(reference_answer)
         return a == b or chrf(a, b) >= 70
-    raise ValueError(f"unknown match mode {match!r}")
+    raise UsageError(f"unknown match mode {match!r}")
 
 
 @dataclass
@@ -183,22 +198,31 @@ class CaseResult:
     optimized_output_tokens: Optional[int] = None
 
 
-def load_cases(path: str) -> List[dict]:
-    base = Path(path).parent
+def load_cases(path: str, allow_external_files: bool = False) -> List[dict]:
+    """Load JSONL cases. ``prompt_file`` must resolve inside the cases file's
+    directory unless ``allow_external_files`` is set: a downloaded case file
+    must not be able to read e.g. ``~/.ssh/id_rsa`` and send it to an API."""
+    base = Path(path).resolve().parent
     cases = []
     for i, line in enumerate(Path(path).read_text(encoding="utf-8").splitlines()):
         if not line.strip() or line.lstrip().startswith("//"):
             continue
         c = json.loads(line)
         if not isinstance(c, dict):
-            raise ValueError(f"line {i + 1}: expected an object")
+            raise UsageError(f"line {i + 1}: expected an object")
         c.setdefault("id", f"case-{i + 1}")
         if "prompt_file" in c:
-            c["prompt"] = (base / c["prompt_file"]).read_text(encoding="utf-8")
+            if not isinstance(c["prompt_file"], str):
+                raise UsageError(f"{c['id']}: prompt_file must be a string")
+            target = (base / c["prompt_file"]).resolve()
+            if not allow_external_files and not target.is_relative_to(base):
+                raise UsageError(f"{c['id']}: prompt_file resolves outside the cases directory; "
+                                 "pass --allow-external-prompt-files if you trust this case file")
+            c["prompt"] = target.read_text(encoding="utf-8")
         if "prompt" not in c:
-            raise ValueError(f"{c['id']}: needs prompt or prompt_file")
+            raise UsageError(f"{c['id']}: needs prompt or prompt_file")
         if not isinstance(c["prompt"], str) or not isinstance(c.get("question", ""), str):
-            raise ValueError(f"{c['id']}: prompt and question must be strings")
+            raise UsageError(f"{c['id']}: prompt and question must be strings")
         c.setdefault("match", "contains" if "expected" in c else "same_as_original")
         # Validate all scoring rules before sending any prompts to a backend.
         score("", c.get("expected"), c["match"])
@@ -233,7 +257,7 @@ def run_bench(cases: List[dict], runner: Runner, optimize_kwargs: dict,
             strategy = candidate.name
         limit = optimize_kwargs.get("max_tokens")
         if limit is not None and optimized_n > limit:
-            raise ValueError("final benchmark prompt including question exceeds max_tokens")
+            raise UsageError("final benchmark prompt including question exceeds max_tokens")
         answers, times, errors = [], [], []
         for arm, prompt in (("original", original_prompt), ("optimized", optimized_prompt)):
             start = time.perf_counter()

@@ -1,8 +1,14 @@
-# tokopt: experimental token-aware prompt optimizer
+# PromptSieve: experimental token-aware prompt and log compression
 
-`tokopt` builds smaller versions of text, counts them with a selected counter,
-and selects the smallest candidate that passes its checks. Core strategies work
-without dependencies. Translation and model-based pruning are experimental.
+PromptSieve (Python package and CLI: `tokopt`) builds smaller versions of text,
+counts them with a selected counter, and selects the smallest candidate that
+passes its checks. Core strategies work without dependencies. Translation and
+model-based pruning are experimental.
+
+**Status: experimental alpha.** The dependable part is log/test-output
+compression in the default fast mode. LLMLingua pruning and translation are
+research features. See [What the evidence shows](#what-the-evidence-shows)
+before relying on any number in this repository.
 
 **Preservation checks are filters, not proof of equivalent meaning.** Use raw
 source for editing, configuration, audit trails, and decisions requiring every
@@ -16,13 +22,15 @@ unproven.
 
 ## Install
 
-Python 3.9+ is declared; the independent local review ran on Windows/Python
-3.13.7; real optional-model testing now also runs on WSL/Python 3.12.3.
-The CI matrix covers Python 3.9, 3.11, 3.13 and Windows, but has not yet
-run on GitHub. Use Python 3.11 for optional ML backends until their complete
-dependency stacks have been verified on your platform.
+Requires Python 3.10+ (3.9 reached end of life in October 2025). The offline
+test suite has been run locally on Python 3.10 and 3.13; real optional-model
+testing ran on WSL/Python 3.12. CI covers Python 3.10, 3.12 and 3.13 on Ubuntu
+24.04 and Python 3.13 on Windows. Use Python 3.11 or 3.12 for optional ML
+backends until their dependency stacks have been verified on your platform.
 
 ```bash
+git clone https://github.com/HRY47/prompt-sieve.git
+cd prompt-sieve
 python -m venv .venv
 # Linux/macOS:
 source .venv/bin/activate
@@ -58,8 +66,11 @@ check does not establish model inference, API access, or installed language pack
 ## Fast defaults, deadlines, and recoverable originals
 
 The CLI defaults to `--mode fast`: normalization and detected log compression,
-with no implicit ML inference. Small cosmetic savings are ignored unless you
-explicitly request normalization. `--mode balanced` can additionally try
+with no implicit ML inference. Cosmetic normalization that saves less than
+`--min-savings` is declined in every mode unless you explicitly request
+`-s normalize`, because whitespace-only edits changed a model's answer in the
+Phase 3 evidence. Note that the CLI applies fast-mode cost gates even to
+`-s lingua`; pass `--mode full` to run it on short prompts. `--mode balanced` can additionally try
 LLMLingua for large `auto` inputs. Cost-gated ML requires at least 1,024 source
 tokens and an optimistic 256-token reduction, configurable with
 `--ml-min-tokens` and `--ml-min-saved-tokens`. These thresholds are a policy,
@@ -126,7 +137,7 @@ assert result.original_text == text
 | Strategy | Behavior | Limits |
 |---|---|---|
 | `normalize` | Removes terminal escapes, normalizes CRLF, cleans some trailing whitespace and repeated blank lines | Formatting changes; fenced/structured content is protected; general CR updates are retained |
-| `logs` | Removes recognized passing tests/install progress, collapses repeated nondiagnostic lines, focuses long logs around recognized diagnostics | Lossy: unknown lines can matter; default keeps all Java frames |
+| `logs` | Removes recognized passing tests/install progress, collapses repeated nondiagnostic lines, focuses long logs around recognized diagnostics. Text before the first and after the last recognized log line (your instructions or question) is kept verbatim and verified. Long logs with no recognized diagnostic or summary are not truncated | Lossy: unknown lines between diagnostics can matter; lines that merely *look* like log output can be omitted; default keeps all Java frames |
 | `lingua` | Local LLMLingua-2 word pruning; skips protected segments and asks the model to retain digits and critical words | Local model required; critical item gate can reject damaged output |
 | `translate:XX` (Python API), `-l XX` (CLI) | Local prose translation with protected literals and a round-trip check | Experimental; back-translation does not prove correctness |
 | `mixed-per-paragraph` | Tries languages independently per unstructured paragraph | May lose terminology consistency and context across paragraphs |
@@ -204,9 +215,10 @@ print(result.best.text)
 {"id":"agreement-only","prompt_file":"prompt.md","match":"same_as_original"}
 ```
 
-Paths are relative to the cases file. Case files are trusted local configuration:
-`prompt_file` can read any file your account can read. Review downloaded cases
-before running them, especially with a remote backend.
+Paths are relative to the cases file and must stay inside its directory, so a
+downloaded case file cannot read, for example, `~/.ssh/id_rsa` and send it to an
+API. `--allow-external-prompt-files` lifts this for case files you trust.
+Review downloaded cases before running them, especially with a remote backend.
 
 Runners: `openai:MODEL`, `anthropic:MODEL`, `ollama:MODEL`, `cmd:SHELL COMMAND`.
 API runners can incur charges; invoke them only when you intend to pay.
@@ -249,11 +261,35 @@ run untrusted workloads inside a separate OS sandbox with resource limits.
 
 API runners/counters transmit text externally. Model/encoding downloads and
 Argos package installation trust upstream repositories and their dependencies;
-models are not pinned to immutable revisions. Hugging Face custom tokenizer
-code is disabled, but that is not a sandbox for dependencies or weights.
+models are not pinned to immutable revisions. Hugging Face custom code is
+disabled for tokenizers and for LLMLingua model loading (llmlingua 0.2.x would
+otherwise enable it), but that is not a sandbox for dependencies or weights.
 NLLB's default weights have a separate noncommercial license; see the
 [model card](https://huggingface.co/facebook/nllb-200-distilled-600M).
 See [SECURITY.md](SECURITY.md) for disclosure and deployment limits.
+
+## What the evidence shows
+
+The `review/` directory holds Codex's Phase 1–3 reports and raw data, plus an
+[independent final review](review/FINAL-REVIEW.md). Read the headline numbers
+with these qualifications:
+
+- **"41.6% fewer input tokens" in fast mode** is an aggregate over a synthetic
+  120-case corpus. Fast mode changed only the 10 log fixtures, which hold 45%
+  of the corpus's tokens and were compressed by about 93%. The other 110
+  prompts were sent unchanged. Median per-prompt saving: 0%. Savings on your
+  workload depend almost entirely on how much log/test output it contains.
+- **"Zero paired regressions" in fast mode** is not evidence of answer
+  preservation. 110 prompts were byte-identical to the original, and all 10
+  compressed log prompts were already answered wrong at baseline, so no
+  regression was possible. Under the strict exact-match scorer the model's
+  compressed-log answers (`tests/test_api.py::test_failure_0` for an expected
+  `test_failure_0`) also scored as wrong, which likely hides an improvement.
+- The final 720-arm replay reused recorded answers for identical inputs; no
+  fresh generations were run for it. The guards were tuned on the same corpus.
+  This is in-sample verification with one 0.5B model, not held-out validation.
+- Optimizer timings and the 97 MiB RSS figure measure the optimizer alone.
+  No target-model RAM/VRAM saving has been measured.
 
 ## Resources and measurements
 

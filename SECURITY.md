@@ -8,9 +8,10 @@ Do not use it as a network service accepting untrusted backend specifications.
   permissions. Keep it trusted. Timeouts attempt process-tree termination;
   detached processes and commands controlling external services require
   independent isolation. Subprocess output is buffered without a size limit.
-- Cases are trusted configuration. `prompt_file` resolves relative to the case
-  file and intentionally allows absolute paths and parent directories. Never
-  run an unreviewed case file against an API: it could disclose local files.
+- `prompt_file` resolves relative to the case file and must stay inside its
+  directory; absolute paths and `..` escapes are rejected unless
+  `--allow-external-prompt-files` is given. Still review downloaded case files
+  before running them against an API.
 - API runners and the Anthropic token counter transmit input to their providers.
   Ollama uses `OLLAMA_HOST`, which can point to a remote service. This setting
   must be trusted. No backend is automatically invoked by `doctor` beyond local
@@ -22,7 +23,7 @@ Do not use it as a network service accepting untrusted backend specifications.
 - Text may contain prompt injections. Preserve trust boundaries when sending it
   to a model. Removing words or delimiters can strengthen malicious instructions.
 - Dependency/model installation executes or loads upstream software/data. Model
-  revisions are not pinned. HF tokenizer remote code is explicitly disabled;
+  revisions are not pinned. HF tokenizer and LLMLingua remote code are explicitly disabled;
   third-party loaders and weights remain part of the trust boundary. Use trusted
   sources, patched dependencies and an isolated environment.
 - Regex scoring evaluates case-authored regular expressions. Malicious regexes,
@@ -33,10 +34,9 @@ No credentials belong in cases, commands, reports, source files, or commits.
 Use provider environment variables. `.env`, keys and local reports are ignored
 by default; `.gitignore` does not remove files already committed.
 
-For a vulnerability, contact the repository maintainer privately using the
-eventual repository's security advisory/contact channel. Do not include live
-credentials or private prompts in a public issue. A repository/contact channel
-has not been created by this review.
+To report a vulnerability, use GitHub's private vulnerability reporting on
+https://github.com/HRY47/prompt-sieve (Security tab → "Report a vulnerability").
+Do not include live credentials or private prompts in a public issue.
 
 Phase 3 result caching retains source/candidate text only in bounded process
 memory (TTL/LRU), never in a disk cache. Disable it with `cache=False` or clear

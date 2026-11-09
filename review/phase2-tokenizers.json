@@ -1,7 +1,7 @@
 {
   "mode": "tokenizers",
   "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
-  "executable": "/mnt/c/Users/hooma/Desktop/tokopt/.venv/bin/python",
+  "executable": "<project>/.venv/bin/python",
   "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "peak_process_rss_bytes": 867844096,
   "gpu_vram_bytes": null,

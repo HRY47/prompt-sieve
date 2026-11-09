@@ -1,18 +1,23 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "tokopt"
 version = "0.1.0"
-description = "Token-aware prompt optimizer: log compression, LLMLingua-2 pruning, and a multilingual token experiment."
+description = "PromptSieve (tokopt): experimental token-aware prompt and log compression with preservation checks."
 readme = "README.md"
-requires-python = ">=3.9"
-license = {file = "LICENSE"}
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent",
 ]
 dependencies = []
@@ -26,6 +31,9 @@ argos = ["argostranslate>=1.9"]
 nllb = ["transformers>=4.40,<5", "torch", "sentencepiece"]
 all = ["tiktoken>=0.7", "openai>=1.40", "anthropic>=0.40", "tokenizers>=0.15", "transformers>=4.40,<5", "llmlingua>=0.2.2", "argostranslate>=1.9", "sentencepiece"]
 dev = ["pytest>=7"]
+
+[project.urls]
+Repository = "https://github.com/HRY47/prompt-sieve"
 
 [project.scripts]
 tokopt = "tokopt.cli:main"

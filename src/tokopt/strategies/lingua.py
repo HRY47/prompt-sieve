@@ -53,8 +53,13 @@ class LinguaCompressor:
         if key not in _compressor_cache:
             from llmlingua import PromptCompressor
 
+            # llmlingua 0.2.x defaults trust_remote_code=True, which would run
+            # Python shipped inside any Hub repository passed as --lingua-model.
+            # The published LLMLingua-2 classifiers need no custom code. A fresh
+            # dict is passed because upstream mutates its default argument.
             _compressor_cache[key] = PromptCompressor(
-                model_name=self.model, use_llmlingua2=True, device_map=device
+                model_name=self.model, use_llmlingua2=True, device_map=device,
+                model_config={"trust_remote_code": False},
             )
         return _compressor_cache[key]
 
