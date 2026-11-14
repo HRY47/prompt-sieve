@@ -444,7 +444,8 @@ def test_existing_log_directory_is_made_private(tmp_path):
 
 
 @pytest.mark.skipif(os.name != "nt", reason="Windows access control lists")
-def test_existing_log_directory_is_private_or_refused(tmp_path):
+@pytest.mark.parametrize("inherit_core_modules", [False, True], ids=["native-modules", "inherited-core-modules"])
+def test_existing_log_directory_is_private_or_refused(tmp_path, inherit_core_modules):
     logs = tmp_path / "logs"
     logs.mkdir()
     # Grant Everyone (S-1-1-0) inheritable read access on this disposable folder only.
@@ -452,12 +453,26 @@ def test_existing_log_directory_is_private_or_refused(tmp_path):
     path = rawlog.save_raw("synthetic output", "t", {"PROMPTSIEVE_LOG_DIR": str(logs)})
     if path is None:
         return  # refusing to save is acceptable: nothing is shortened then
-    script = ("(Get-Acl -LiteralPath $env:PS_TARGET).GetAccessRules($true, $true, "
-              "[System.Security.Principal.SecurityIdentifier]) | ForEach-Object { $_.IdentityReference.Value }")
+    child_env = dict(os.environ)
+    if inherit_core_modules:
+        # Model pwsh -> Python -> powershell.exe on GitHub's Windows runner.
+        # Windows PowerShell cannot load the inherited PowerShell 7 module.
+        module = tmp_path / "ps7-modules" / "Microsoft.PowerShell.Security"
+        module.mkdir(parents=True)
+        (module / "Microsoft.PowerShell.Security.psd1").write_text(
+            "@{ ModuleVersion='7.0'; PowerShellVersion='7.0'; CmdletsToExport=@('Get-Acl') }",
+            encoding="utf-8")
+        child_env["PSModulePath"] = str(module.parent) + os.pathsep + child_env.get("PSModulePath", "")
     for target in (path, path.parent):
-        sids = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", script],
-                              env={**os.environ, "PS_TARGET": str(target)},
-                              capture_output=True, text=True, check=True).stdout.split()
+        # Use .NET directly, independent of PowerShell's module search path.
+        kind = "Directory" if target.is_dir() else "File"
+        script = (f"[System.IO.{kind}]::GetAccessControl($env:PS_TARGET).GetAccessRules($true, $true, "
+                  "[System.Security.Principal.SecurityIdentifier]) | ForEach-Object { $_.IdentityReference.Value }")
+        probe = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", script],
+                               env={**child_env, "PS_TARGET": str(target)},
+                               capture_output=True, text=True)
+        assert probe.returncode == 0, f"ACL inspection failed: {probe.stderr}"
+        sids = probe.stdout.split()
         assert sids, "no access rules read"
         for broad in ("S-1-1-0", "S-1-5-11", "S-1-5-32-545"):  # Everyone, Authenticated Users, Users
             assert broad not in sids
