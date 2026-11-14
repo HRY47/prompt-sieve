@@ -1,0 +1,15 @@
+{
+  "name": "prompt-sieve",
+  "displayName": "PromptSieve",
+  "version": "0.2.0",
+  "description": "Shortens large test, build and install output before Claude reads it, keeping errors, failures and summaries. Offline; the full output is saved privately.",
+  "author": {
+    "name": "HRY47",
+    "url": "https://github.com/HRY47"
+  },
+  "homepage": "https://github.com/HRY47/prompt-sieve",
+  "repository": "https://github.com/HRY47/prompt-sieve",
+  "license": "MIT",
+  "keywords": ["tokens", "logs", "context", "compression"],
+  "skills": ["./src/promptsieve/integrations/skills/"]
+}

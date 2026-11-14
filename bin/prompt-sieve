@@ -1,0 +1,23 @@
+#!/bin/sh
+# PromptSieve launcher used by the Claude Code plugin. While the plugin is
+# enabled, Claude Code puts this folder on the Bash tool's PATH, so
+# `prompt-sieve` works without pip. It runs the copy of PromptSieve bundled
+# with the plugin using any Python 3.10+ on PATH.
+#
+# Python runs in isolated mode (-I) so that modules in the current project
+# directory can never shadow PromptSieve's own code or the standard library.
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd) || exit 1
+
+for candidate in python3 python; do
+  if command -v "$candidate" >/dev/null 2>&1 &&
+     "$candidate" -I -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' >/dev/null 2>&1; then
+    exec "$candidate" -I -c 'import sys; sys.path.insert(0, sys.argv.pop(1)); from promptsieve.cli import main; main()' "$root/src" "$@"
+  fi
+done
+
+# No suitable Python. A hook must never break Claude's tool call: stay silent.
+if [ "$1" = "hook" ]; then
+  exit 0
+fi
+echo "prompt-sieve: Python 3.10 or newer was not found on PATH" >&2
+exit 127

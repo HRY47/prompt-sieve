@@ -45,6 +45,7 @@ jobs:
               roots = {name.split("/")[0] for name in archive.namelist()}
               metadata_dir = next(name for name in roots if name.endswith(".dist-info"))
               assert roots == {"promptsieve", metadata_dir}, roots
+              assert "promptsieve/integrations/skills/prompt-sieve/SKILL.md" in archive.namelist()
               entries = configparser.ConfigParser()
               entries.read_string(archive.read(f"{metadata_dir}/entry_points.txt").decode())
               assert dict(entries["console_scripts"]) == {"prompt-sieve": "promptsieve.cli:main"}

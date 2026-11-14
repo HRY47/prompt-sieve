@@ -7,6 +7,9 @@
   prompt-sieve bench CASES.jsonl -r RUNNER       same-answer accuracy benchmark
   prompt-sieve setup-languages fa zh ja          install Argos language packs
   prompt-sieve doctor                            show which backends are available
+  prompt-sieve run -- COMMAND ...                run a command, shorten noisy output, keep exit status
+  prompt-sieve install codex|claude-code         install the agent skill (--scope user|project)
+  prompt-sieve hook claude-code                  Claude Code PostToolUse hook (reads JSON on stdin)
 
 FILE may be "-" for stdin, e.g.  pytest 2>&1 | prompt-sieve compress -
 """
@@ -230,6 +233,24 @@ def cmd_doctor(a):
                   "; check optional dependencies, cached data and provider environment")
 
 
+def cmd_run(a):
+    from .integrations.run import run_command
+    if a.min_chars < 0:
+        raise UsageError("--min-chars must be nonnegative")
+    sys.exit(run_command(a.command, min_chars=a.min_chars, save=not a.no_save))
+
+
+def cmd_install(a):
+    from .integrations.install import install
+    for line in install(a.agent, scope=a.scope, uninstall=a.uninstall, force=a.force, dry_run=a.dry_run):
+        print(line)
+
+
+def cmd_hook(a):
+    from .integrations import claude_hook
+    sys.exit(claude_hook.main())
+
+
 def main(argv=None):
     p = _ArgumentParser(prog="prompt-sieve", description="PromptSieve: token-aware prompt optimizer")
     p.add_argument("--version", action="version", version=f"PromptSieve {__version__}")
@@ -277,6 +298,25 @@ def main(argv=None):
 
     s = sub.add_parser("doctor", help="show which optional backends work")
     s.set_defaults(fn=cmd_doctor)
+
+    s = sub.add_parser("run", help="run a command and shorten noisy output (exit status preserved)")
+    s.add_argument("--min-chars", type=int, default=6000,
+                   help="only consider output at least this long (default 6000)")
+    s.add_argument("--no-save", action="store_true", help="do not keep a private copy of the full output")
+    s.add_argument("command", nargs=argparse.REMAINDER, help="the command, after --")
+    s.set_defaults(fn=cmd_run)
+
+    s = sub.add_parser("install", help="install the PromptSieve skill for Codex or Claude Code")
+    s.add_argument("agent", choices=["codex", "claude-code"])
+    s.add_argument("--scope", choices=["user", "project"], default="user")
+    s.add_argument("--uninstall", action="store_true")
+    s.add_argument("--force", action="store_true", help="replace a skill folder this tool did not create")
+    s.add_argument("--dry-run", action="store_true")
+    s.set_defaults(fn=cmd_install)
+
+    s = sub.add_parser("hook", help="agent hook entry point (used by the Claude Code plugin)")
+    s.add_argument("agent", choices=["claude-code"])
+    s.set_defaults(fn=cmd_hook)
 
     a = p.parse_args(argv)
     try:

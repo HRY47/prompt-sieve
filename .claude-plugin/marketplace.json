@@ -1,0 +1,15 @@
+{
+  "name": "prompt-sieve",
+  "description": "PromptSieve: offline token-saving compression for logs and command output",
+  "owner": {
+    "name": "HRY47",
+    "url": "https://github.com/HRY47"
+  },
+  "plugins": [
+    {
+      "name": "prompt-sieve",
+      "source": "./",
+      "description": "Shortens large test, build and install output before Claude reads it, keeping errors, failures and summaries."
+    }
+  ]
+}

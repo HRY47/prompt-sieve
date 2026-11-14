@@ -1,5 +1,7 @@
 include LICENSE README.md
-recursive-include skills *.md
+recursive-include .claude-plugin *.json
+recursive-include hooks *.json
+include bin/prompt-sieve
 recursive-include examples *.md *.jsonl *.log
 recursive-include tests *.py
 recursive-include scripts *.py

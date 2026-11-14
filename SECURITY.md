@@ -90,3 +90,34 @@ Local files and release inputs:
   new patch version; do not silently move the existing public tag. Historical
   author metadata and machine paths require a separate owner-approved privacy
   decision; ordinary ignore changes do not erase public history.
+
+Agent integrations:
+
+- The Claude Code hook only changes what Claude reads; the command has already
+  run. It processes Bash output locally, never sends it anywhere, and fails
+  open (on any error Claude sees the original output).
+- The plugin launcher (`bin/prompt-sieve`) runs Python in isolated mode, so
+  modules in the project being worked on cannot shadow PromptSieve or the
+  standard library.
+- Full outputs are saved byte for byte before shortening, in a per-user cache
+  folder with owner-only permissions, never a shared temporary directory. If
+  saving fails, the original output is shown unshortened. No path component
+  below the home directory may be a symbolic link.
+  - On POSIX this is enforced with an `O_NOFOLLOW` descriptor walk. The final
+    folder must belong to the current user and is set to `700`.
+  - On Windows, existing folders' access lists are not trusted. Each output
+    goes into a new folder created with `os.mkdir(path, 0o700)`, which Python
+    3.11.10+/3.12.4+/3.13+ restricts to the current user and administrators.
+    Older versions save nothing and shorten nothing. Parent folders get a
+    check-then-use `lstat` walk.
+
+  Saved files can contain secrets that commands printed; they are pruned
+  after 7 days.
+- `prompt-sieve run` executes exactly the argument list it is given, without a
+  shell. Do not build that list from untrusted text.
+- `prompt-sieve install` only modifies skill folders it created itself. It
+  refuses links or special files where `SKILL.md` or its marker belong, even
+  with `--force`, and writes by renaming a fresh file into place.
+- The hook's skip list is parsed with shell quoting and redirection rules.
+  Command lines it does not model (comments, keywords, substitutions,
+  variable program names) are left unshortened.

@@ -195,6 +195,7 @@ text counts exclude chat protocol overhead; Anthropic counts a request.
 ## Commands
 
 ```bash
+prompt-sieve run -- pytest -q          # keeps pytest's exit status; saves the full log
 pytest 2>&1 | prompt-sieve compress - -q
 # Bash: use `set -o pipefail` if the test exit status must propagate.
 prompt-sieve compress examples/pytest_run.log -s logs -o compact.log
@@ -351,12 +352,117 @@ Install the relevant extras and language packs first. Explicitly enabled
 integrations fail if their dependencies are missing. Integration smoke tests do
 not establish semantic quality. No CI job calls paid APIs.
 
-## Claude Code skill
+## Use with Claude Code and Codex
 
-Copy `skills/prompt-sieve` into `~/.claude/skills/` if desired. The skill tells
-Claude Code to pipe large tool output through the CLI. It does not install or
-invoke a hidden hook, intercept already-read text, or optimize every prompt.
-The integration was reviewed as instructions, not exercised in Claude Code.
+### Claude Code (plugin, no pip needed)
+
+In Claude Code, run:
+
+```
+/plugin marketplace add HRY47/prompt-sieve
+/plugin install prompt-sieve@prompt-sieve
+```
+
+Then restart Claude Code, or run `/reload-plugins`. The same works from a terminal with
+`claude plugin marketplace add HRY47/prompt-sieve` and
+`claude plugin install prompt-sieve@prompt-sieve`. Requires Python 3.10+ on
+`PATH`.
+
+The plugin adds three things:
+
+- **Automatic compression.** A `PostToolUse` hook shortens large, log-like Bash
+  output (test runs, builds, installs) before Claude reads it. Errors, failures,
+  tracebacks, summaries and any text around the log are kept. The command has
+  already run, and its exit status is unchanged; only what Claude sees changes.
+- **The `prompt-sieve` command** on Claude's Bash `PATH`, using the copy bundled
+  with the plugin.
+- **The skill**, which tells Claude when to use the tool and how to find removed
+  lines.
+
+What the hook leaves alone:
+
+- output under about 6,000 characters (roughly 1,500 tokens)
+- output that doesn't look like a log
+- commands that read files or diffs exactly (`cat`, `head`, `tail`, `grep`,
+  `sed`, `git diff`, `git show`, `git log`, ...), also when quoted or wrapped
+  (`'cat' f`, `sudo -n cat f`, `bash -c 'cat f'`, `ls | xargs cat`)
+- command lines it cannot read with confidence: `$(...)`, backticks, `eval`,
+  comments, shell keywords (`if`, `for`, `while`, `{ ... }`), and program names
+  built from variables or wildcards (`"$READER" f`). Commands written that way
+  are left unshortened even when they would have been safe to shorten.
+- background commands
+- anything that already ran through `prompt-sieve`
+
+If anything goes wrong, the hook prints nothing and Claude sees the original output.
+
+| Setting | Effect |
+|---|---|
+| `PROMPTSIEVE_HOOK=off` | disable the hook without uninstalling |
+| `PROMPTSIEVE_HOOK_MIN_CHARS=N` | only consider output at least `N` characters long |
+| `PROMPTSIEVE_LOG_DIR=DIR` | where full outputs are saved |
+
+Set these in your shell, or under `env` in Claude Code's `settings.json`.
+
+On Windows, the hook and launcher are POSIX shell scripts, so they need Git Bash,
+which Claude Code normally uses for its Bash tool.
+
+### Codex
+
+Codex can't replace a tool's output from a hook yet, so the integration is a
+skill plus a wrapper command:
+
+```bash
+pipx install git+https://github.com/HRY47/prompt-sieve   # or: pip install .
+prompt-sieve install codex                                 # ~/.agents/skills/prompt-sieve
+prompt-sieve install codex --scope project                 # .agents/skills/prompt-sieve in this repo
+```
+
+Restart Codex if the skill does not appear. The skill tells Codex to run noisy
+commands as:
+
+```bash
+prompt-sieve run -- pytest -q
+```
+
+`run` works the same everywhere, including with other agents and in scripts:
+
+- the command runs without a shell, and its exit status is returned unchanged
+- stdout and stderr are merged in order
+- short or non-log output is passed through byte for byte
+- shortened output ends with a footer naming the saved full log, which holds
+  the command's exact bytes
+
+`prompt-sieve install claude-code` installs only the skill into
+`~/.claude/skills`, for those who don't want the hook. Remove either skill with
+`--uninstall`. The installer never overwrites a skill folder it did not create
+unless you pass `--force`.
+
+### Where the full output goes
+
+Whenever output is shortened, the complete text is saved first, to a private
+folder (permissions `700`, files `600`):
+
+- in the Claude Code plugin: its data folder
+- elsewhere: `~/.cache/prompt-sieve/logs`, or `%LOCALAPPDATA%\prompt-sieve\logs` on Windows
+
+If the full output can't be saved, nothing is shortened: you get the original.
+
+The log folder may not contain symbolic links anywhere below your home
+directory. Your home directory itself may be a link.
+
+- **Linux and macOS:** this is enforced without following any link, even one
+  swapped in mid-write. The log folder must be owned by you and is set to
+  `700`.
+- **Windows:** every output is saved into a brand-new folder that Python
+  creates for your account and administrators only, whatever the parent folder
+  allows. That needs Python 3.11.10+, 3.12.4+ or 3.13+. On older Python
+  versions nothing is saved, so nothing is shortened. Parent folders are
+  checked for links first, which can't rule out a race by another process
+  running as you.
+
+Files are pruned after 7 days, keeping at most 200. They can contain anything
+the command printed, including secrets, so treat them like the terminal output
+itself. `prompt-sieve run --no-save` skips saving.
 
 ## License and prior art
 

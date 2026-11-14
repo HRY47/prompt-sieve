@@ -5,7 +5,7 @@ from .check import preservation, chrf
 
 __all__ = ["get_counter", "TokenCounter", "HeuristicCounter", "optimize",
            "OptimizeResult", "Candidate", "preservation", "chrf"]
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 from .runtime import OptimizationCache
 __all__.append("OptimizationCache")
